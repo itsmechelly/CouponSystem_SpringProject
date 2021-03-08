@@ -1,5 +1,6 @@
 package com.couponsystem.beans;
 
-public class CouponCategory {
-
+public enum CouponCategory {
+	
+	FOOD, ELECTRICITY, RESTAURANT, VACATION
 }
