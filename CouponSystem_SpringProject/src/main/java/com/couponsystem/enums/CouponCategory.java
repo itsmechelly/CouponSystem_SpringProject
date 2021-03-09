@@ -1,4 +1,4 @@
-package com.couponsystem.beans;
+package com.couponsystem.enums;
 
 public enum CouponCategory {
 	
