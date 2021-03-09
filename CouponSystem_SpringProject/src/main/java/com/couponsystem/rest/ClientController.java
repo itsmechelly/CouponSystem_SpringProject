@@ -1,4 +1,4 @@
-package com.couponsystem.security;
+package com.couponsystem.rest;
 
 public class ClientController {
 
