@@ -6,4 +6,8 @@ import com.couponsystem.beans.Company;
 
 public interface CompanyRepository extends JpaRepository<Company, Integer> {
 
+	int findIdByEmailAndPassword(String email, String password);
+
+	Company findCompanyByEmailAndPassword(String email, String password);
+
 }

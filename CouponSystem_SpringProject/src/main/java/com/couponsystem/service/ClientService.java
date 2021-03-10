@@ -12,9 +12,7 @@ import com.couponsystem.exceptions.CouponSystemException;
 public abstract class ClientService {
 
 	protected final CompanyDbdao companyDbdao;
-
 	protected final CustomerDbdao customerDbdao;
-
 	protected final CouponDbdao couponDbdao;
 
 	@Autowired
