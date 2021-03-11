@@ -1,5 +1,8 @@
 package com.couponsystem.dbdao;
 
+import java.util.List;
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -25,5 +28,39 @@ public class CustomerDbdao {
 
 	public Customer findCustomerByEmailAndPassword(String email, String password) {
 		return customerRepository.findCustomerByEmailAndPassword(email, password);
+	}
+
+	//****************************
+
+	public Customer addCustomer(Customer customer) {
+		return customerRepository.save(customer);
+	}
+
+	public Customer updateCustomer(Customer customer) {
+		return customerRepository.saveAndFlush(customer);
+	}
+
+	public void deleteCustomer(int customerId) {
+		customerRepository.deleteById(customerId);
+	}
+
+	public boolean findByEmailAndPassword(String email, String password) {
+		return customerRepository.findByEmailAndPassword(email, password);
+	}
+
+	public Customer findCustomerById(int customerId) {
+		return customerRepository.findCustomerById(customerId);
+	}
+
+	public Optional<Customer> findById(int customerId) {
+		return customerRepository.findById(customerId);
+	}
+
+	public Customer findCustomerByEmail(String email) {
+		return customerRepository.findCustomerByEmail(email);
+	}
+
+	public List<Customer> findAllCustomers() {
+		return customerRepository.findAll();
 	}
 }
