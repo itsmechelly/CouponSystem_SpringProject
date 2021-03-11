@@ -62,8 +62,8 @@ public class CompanyClr implements CommandLineRunner {
 		coup1.setCategory(CouponCategory.FOOD);
 		coup1.setTitle("coup1Title");
 		coup1.setDescription("coup1Description");
-		coup1.setStartDate(DateUtil.dateFormat(2020, 06, 28));
-		coup1.setEndDate(DateUtil.dateFormat(2020, 10, 28));
+		coup1.setStartDate(DateUtil.dateFormat(2029, 06, 28));
+		coup1.setEndDate(DateUtil.dateFormat(2029, 10, 28));
 		coup1.setAmount(0);
 		coup1.setPrice(100);
 		coup1.setImage("www.compPng1.com");
@@ -72,8 +72,8 @@ public class CompanyClr implements CommandLineRunner {
 		coup2.setCategory(CouponCategory.FOOD);
 		coup2.setTitle("coup2Title");
 		coup2.setDescription("coup2Description");
-		coup2.setStartDate(DateUtil.dateFormat(2020, 07, 28));
-		coup2.setEndDate(DateUtil.dateFormat(2020, 10, 28));
+		coup2.setStartDate(DateUtil.dateFormat(2029, 07, 28));
+		coup2.setEndDate(DateUtil.dateFormat(2029, 10, 28));
 		coup2.setAmount(200);
 		coup2.setPrice(200);
 		coup2.setImage("www.compPng2.com");
@@ -82,8 +82,8 @@ public class CompanyClr implements CommandLineRunner {
 		coup3.setCategory(CouponCategory.RESTAURANT);
 		coup3.setTitle("coup3Title");
 		coup3.setDescription("coup3DDDDDDDDDDD");
-		coup3.setStartDate(DateUtil.dateFormat(2020, 06, 28));
-		coup3.setEndDate(DateUtil.dateFormat(2020, 10, 28));
+		coup3.setStartDate(DateUtil.dateFormat(2029, 06, 28));
+		coup3.setEndDate(DateUtil.dateFormat(2029, 10, 28));
 		coup3.setAmount(888);
 		coup3.setPrice(300);
 		coup3.setImage("www.33333333.com");
@@ -92,8 +92,8 @@ public class CompanyClr implements CommandLineRunner {
 		coup4.setCategory(CouponCategory.RESTAURANT);
 		coup4.setTitle("coup4Title");
 		coup4.setDescription("coup4Description");
-		coup4.setStartDate(DateUtil.dateFormat(2020, 07, 28));
-		coup4.setEndDate(DateUtil.dateFormat(2020, 10, 28));
+		coup4.setStartDate(DateUtil.dateFormat(2029, 07, 28));
+		coup4.setEndDate(DateUtil.dateFormat(2029, 10, 28));
 		coup4.setAmount(400);
 		coup4.setPrice(400);
 		coup4.setImage("www.compPng4.com");
@@ -102,8 +102,8 @@ public class CompanyClr implements CommandLineRunner {
 		coup5.setCategory(CouponCategory.RESTAURANT);
 		coup5.setTitle("coup5Title");
 		coup5.setDescription("coup5Description");
-		coup5.setStartDate(DateUtil.dateFormat(2020, 07, 28));
-		coup5.setEndDate(DateUtil.dateFormat(2020, 10, 28));
+		coup5.setStartDate(DateUtil.dateFormat(2029, 07, 28));
+		coup5.setEndDate(DateUtil.dateFormat(2029, 10, 28));
 		coup5.setAmount(500);
 		coup5.setPrice(500);
 		coup5.setImage("www.compPng5.com");
@@ -112,8 +112,8 @@ public class CompanyClr implements CommandLineRunner {
 		coup6.setCategory(CouponCategory.VACATION);
 		coup6.setTitle("coup6Title");
 		coup6.setDescription("coup6Description");
-		coup6.setStartDate(DateUtil.dateFormat(2020, 07, 28));
-		coup6.setEndDate(DateUtil.dateFormat(2020, 10, 28));
+		coup6.setStartDate(DateUtil.dateFormat(2029, 07, 28));
+		coup6.setEndDate(DateUtil.dateFormat(2029, 10, 28));
 		coup6.setAmount(600);
 		coup6.setPrice(600);
 		coup6.setImage("www.compPng6.com");
@@ -122,8 +122,8 @@ public class CompanyClr implements CommandLineRunner {
 		coup7.setCategory(CouponCategory.VACATION);
 		coup7.setTitle("coup7Title");
 		coup7.setDescription("coup7Description");
-		coup7.setStartDate(DateUtil.dateFormat(2020, 07, 28));
-		coup7.setEndDate(DateUtil.dateFormat(2020, 8, 28));
+		coup7.setStartDate(DateUtil.dateFormat(2029, 07, 28));
+		coup7.setEndDate(DateUtil.dateFormat(2029, 8, 28));
 		coup7.setAmount(700);
 		coup7.setPrice(700);
 		coup7.setImage("www.compPng7.com");
@@ -132,8 +132,8 @@ public class CompanyClr implements CommandLineRunner {
 		coup8.setCategory(CouponCategory.RESTAURANT);
 		coup8.setTitle("coup8Title");
 		coup8.setDescription("coup8Description");
-		coup8.setStartDate(DateUtil.dateFormat(2020, 07, 28));
-		coup8.setEndDate(DateUtil.dateFormat(2020, 10, 28));
+		coup8.setStartDate(DateUtil.dateFormat(2029, 07, 28));
+		coup8.setEndDate(DateUtil.dateFormat(2029, 10, 28));
 		coup8.setAmount(800);
 		coup8.setPrice(800);
 		coup8.setImage("www.compPng8.com");
@@ -154,8 +154,8 @@ public class CompanyClr implements CommandLineRunner {
 		coup77.setCategory(CouponCategory.VACATION);
 		coup77.setTitle("coup7Title");
 		coup77.setDescription("coup77Description");
-		coup77.setStartDate(DateUtil.dateFormat(2020, 07, 28));
-		coup77.setEndDate(DateUtil.dateFormat(2020, 10, 28));
+		coup77.setStartDate(DateUtil.dateFormat(2029, 07, 28));
+		coup77.setEndDate(DateUtil.dateFormat(2029, 10, 28));
 		coup77.setAmount(7700);
 		coup77.setPrice(7700);
 		coup77.setImage("www.compPng77.com");
@@ -166,8 +166,8 @@ public class CompanyClr implements CommandLineRunner {
 
 		coup3.setTitle("coup3Title");
 		coup3.setDescription("coup3Description");
-		coup3.setStartDate(DateUtil.dateFormat(2020, 06, 29));
-		coup3.setEndDate(DateUtil.dateFormat(2020, 10, 29));
+		coup3.setStartDate(DateUtil.dateFormat(2029, 06, 29));
+		coup3.setEndDate(DateUtil.dateFormat(2029, 10, 29));
 		coup3.setAmount(333);
 		coup3.setPrice(300);
 		coup3.setImage("www.compPng3.com");
