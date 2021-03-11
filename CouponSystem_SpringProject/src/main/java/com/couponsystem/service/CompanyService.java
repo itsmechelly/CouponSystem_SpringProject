@@ -37,20 +37,21 @@ public class CompanyService extends ClientService {
 //	------------------------------------------------------------------------------------------------------------
 
 	@Override
-	public boolean login(String email, String password) throws CouponSystemException {
+	public boolean login(String email, String password) {
 		Company company = companyDbdao.findCompanyByEmailAndPassword(email, password);
-		if (company != null)
+		if (company != null) {
 			return true;
+		}
 		return false;
 	}
 
-	public int findIdByEmailAndPassword(String email, String password) {
-		return companyDbdao.findIdByEmailAndPassword(email, password);
+	public int findCompanyIdByEmailAndPassword(String email, String password) {
+		Company cForCompanyId = companyDbdao.findCompanyByEmailAndPassword(email, password);
+		return cForCompanyId.getId();
 	}
 
-
 //	------------------------------------------------------------------------------------------------------------
-//***********************************
+
 	public Coupon addCompanyCoupon(Coupon coupon) throws AlreadyExistException, LogException {
 		Company compFromDb = companyDbdao.findCompanyById(companyId);
 		List<Coupon> coupListFromDb = compFromDb.getCoupons();

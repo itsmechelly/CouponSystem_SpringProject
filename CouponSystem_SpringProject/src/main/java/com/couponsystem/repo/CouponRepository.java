@@ -10,7 +10,6 @@ import com.couponsystem.enums.CouponCategory;
 
 public interface CouponRepository extends JpaRepository<Coupon, Integer> {
 
-	//****************************
 	Coupon findCouponById (int id);//Added to use in customerService.purchaseCoupon;
 	Coupon findCouponByTitle(String title);//Added to use in companyService.addCompanyCoupon;
 	List<Coupon> findByTitle(String title);// Added to use in customerService.purchaseCoupon;

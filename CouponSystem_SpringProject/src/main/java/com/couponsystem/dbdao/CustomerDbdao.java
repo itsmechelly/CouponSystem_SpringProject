@@ -22,16 +22,6 @@ public class CustomerDbdao {
 
 //	------------------------------------------------------------------------------------------------------------
 
-	public int findIdByEmailAndPassword(String email, String password) {
-		return customerRepository.findIdByEmailAndPassword(email, password);
-	}
-
-	public Customer findCustomerByEmailAndPassword(String email, String password) {
-		return customerRepository.findCustomerByEmailAndPassword(email, password);
-	}
-
-	//****************************
-
 	public Customer addCustomer(Customer customer) {
 		return customerRepository.save(customer);
 	}
@@ -55,9 +45,13 @@ public class CustomerDbdao {
 	public Optional<Customer> findById(int customerId) {
 		return customerRepository.findById(customerId);
 	}
-
+	
 	public Customer findCustomerByEmail(String email) {
 		return customerRepository.findCustomerByEmail(email);
+	}
+
+	public Customer findCustomerByEmailAndPassword(String email, String password) {
+		return customerRepository.findCustomerByEmailAndPassword(email, password);
 	}
 
 	public List<Customer> findAllCustomers() {

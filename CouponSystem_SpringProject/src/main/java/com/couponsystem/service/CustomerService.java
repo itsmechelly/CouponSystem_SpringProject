@@ -37,18 +37,19 @@ public class CustomerService extends ClientService {
 //	------------------------------------------------------------------------------------------------------------
 
 	@Override
-	public boolean login(String email, String password) throws CouponSystemException {
+	public boolean login(String email, String password) {
 		Customer customer = customerDbdao.findCustomerByEmailAndPassword(email, password);
-		if (customer != null)
+		if (customer != null) {
 			return true;
+		}
 		return false;
 	}
 
-	public int findIdByEmailAndPassword(String email, String password) {
-		return customerDbdao.findIdByEmailAndPassword(email, password);
+	public int findCustomerIdByEmailAndPassword(String email, String password) {
+		Customer cForCustomerId = customerDbdao.findCustomerByEmailAndPassword(email, password);
+		return cForCustomerId.getId();
 	}
 //	------------------------------------------------------------------------------------------------------------
-	//****************************
 
 	public Coupon purchaseCoupon(Coupon coupon) throws PurchaseCouponException, LogException {
 

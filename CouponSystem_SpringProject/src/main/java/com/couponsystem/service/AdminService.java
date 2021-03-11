@@ -13,7 +13,6 @@ import com.couponsystem.dbdao.CompanyDbdao;
 import com.couponsystem.dbdao.CouponDbdao;
 import com.couponsystem.dbdao.CustomerDbdao;
 import com.couponsystem.exceptions.AlreadyExistException;
-import com.couponsystem.exceptions.CouponSystemException;
 import com.couponsystem.exceptions.LogException;
 import com.couponsystem.exceptions.NotAllowedException;
 import com.couponsystem.exceptions.NotFoundException;
@@ -29,13 +28,13 @@ public class AdminService extends ClientService {
 //	------------------------------------------------------------------------------------------------------------
 
 	@Override
-	public boolean login(String email, String password) throws CouponSystemException {
-		// TODO Auto-generated method stub
+	public boolean login(String email, String password) {
+		if (email.equalsIgnoreCase("admin@admin.com") && password.equals("admin")) {
+			return true;
+		}
 		return false;
 	}
-
 //	------------------------------------------------------------------------------------------------------------
-//*********************************************
 
 	public Company addCompany(Company company) throws AlreadyExistException, LogException {
 		if (companyDbdao.findCompanyByEmail(company.getEmail()) != null) {

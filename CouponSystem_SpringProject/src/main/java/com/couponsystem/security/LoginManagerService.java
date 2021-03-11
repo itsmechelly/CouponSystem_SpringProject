@@ -33,7 +33,7 @@ public class LoginManagerService {
 		this.customerService = customerService;
 	}
 	
-	public String login(String email, String password, ClientType clientType) throws CouponSystemException {
+	public String login(String email, String password, ClientType clientType) throws LogException {
 
 		switch (clientType) {
 		
@@ -45,7 +45,7 @@ public class LoginManagerService {
 		case COMPANY:
 			companyService = ctx.getBean(CompanyService.class);
 			if (companyService.login(email, password)) {
-				int companyId = companyService.findIdByEmailAndPassword(email, password);
+				int companyId = companyService.findCompanyIdByEmailAndPassword(email, password);
 				companyService.setCompanyId(companyId);
 				return tokenManager.addToken(companyService);
 			}
@@ -53,7 +53,7 @@ public class LoginManagerService {
 		case CUSTOMER:
 			customerService = ctx.getBean(CustomerService.class);
 			if (customerService.login(email, password)) {
-				int customerId = customerService.findIdByEmailAndPassword(email, password);
+				int customerId = customerService.findCustomerIdByEmailAndPassword(email, password);
 				customerService.setCustomerId(customerId);
 				return tokenManager.addToken(customerService);
 			}

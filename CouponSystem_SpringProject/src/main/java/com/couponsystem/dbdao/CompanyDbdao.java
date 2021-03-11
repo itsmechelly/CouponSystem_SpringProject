@@ -22,14 +22,6 @@ public class CompanyDbdao {
 
 //	------------------------------------------------------------------------------------------------------------
 
-	public int findIdByEmailAndPassword(String email, String password) {
-		return companyRepository.findIdByEmailAndPassword(email, password);
-	}
-	
-	public Company findCompanyByEmailAndPassword(String email, String password) {
-		return companyRepository.findCompanyByEmailAndPassword(email, password);
-	}
-	//****************************
 	public Company addCompany(Company company) {
 		return companyRepository.save(company);
 	}
@@ -60,6 +52,10 @@ public class CompanyDbdao {
 	
 	public Company findCompanyByEmail(String email) {
 		return companyRepository.findCompanyByEmail(email);
+	}
+	
+	public Company findCompanyByEmailAndPassword(String email, String password) {
+		return companyRepository.findCompanyByEmailAndPassword(email, password);
 	}
 	
 	public List<Company> findAllCompanies() {
