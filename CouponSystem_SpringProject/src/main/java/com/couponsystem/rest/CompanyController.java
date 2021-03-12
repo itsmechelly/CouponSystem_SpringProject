@@ -21,7 +21,6 @@ import com.couponsystem.beans.LoginResponse;
 import com.couponsystem.enums.ClientType;
 import com.couponsystem.enums.CouponCategory;
 import com.couponsystem.exceptions.AlreadyExistException;
-import com.couponsystem.exceptions.CouponSystemException;
 import com.couponsystem.exceptions.LogException;
 import com.couponsystem.exceptions.NotAllowedException;
 import com.couponsystem.exceptions.NotFoundException;

@@ -46,4 +46,5 @@ public class Coupon {
 	private double price;
 	@Column(nullable = true)
 	private String image;
+	
 }

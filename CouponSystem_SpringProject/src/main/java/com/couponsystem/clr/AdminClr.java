@@ -216,4 +216,5 @@ public class AdminClr implements CommandLineRunner {
 
 		System.out.println(adminController.getAllCustomers(tokenManager.tokenForClrTest()));
 	}
+	
 }

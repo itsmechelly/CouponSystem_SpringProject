@@ -11,5 +11,4 @@ public interface CompanyRepository extends JpaRepository<Company, Integer> {
 	Company findCompanyByName(String name);//Added to use in adminService.addCompany;
 	Company findCompanyByEmail(String email);//Added to use in adminService.addCompany;
 	Company findCompanyByEmailAndPassword(String email, String password);//Added to use in LoginManager.login methods;	
-
 }
