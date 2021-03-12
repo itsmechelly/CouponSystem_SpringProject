@@ -16,4 +16,5 @@ public abstract class ClientController {
 	public abstract ResponseEntity<?> ClientLogin(String email, String password) throws CouponSystemException;
 
 	public abstract ResponseEntity<?> ClientLogout() throws CouponSystemException;
+	
 }

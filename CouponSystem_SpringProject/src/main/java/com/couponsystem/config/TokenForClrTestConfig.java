@@ -10,4 +10,5 @@ public class TokenForClrTestConfig {
 	public String tokenForClrTest() {
 		return new String();
 	}
+	
 }

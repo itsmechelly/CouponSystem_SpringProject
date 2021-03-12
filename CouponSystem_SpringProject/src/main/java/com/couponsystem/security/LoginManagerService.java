@@ -6,7 +6,6 @@ import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 
 import com.couponsystem.enums.ClientType;
-import com.couponsystem.exceptions.CouponSystemException;
 import com.couponsystem.exceptions.LogException;
 import com.couponsystem.service.AdminService;
 import com.couponsystem.service.CompanyService;

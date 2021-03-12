@@ -62,5 +62,6 @@ public class CouponDbdao {
 	public List<Coupon> findAllCouponsByCategory(CouponCategory couponCategory) {
 		return couponRepository.findAllCouponsByCategory(couponCategory);
 	}
+	
 }
 

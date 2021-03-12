@@ -13,5 +13,6 @@ public class LogException extends CouponSystemException {
 	
 	public LogException(String s) {
 		super("Failed to logout, token or identifier " + s + " dosen't exist in MapList.");
-	}	
+	}
+	
 }

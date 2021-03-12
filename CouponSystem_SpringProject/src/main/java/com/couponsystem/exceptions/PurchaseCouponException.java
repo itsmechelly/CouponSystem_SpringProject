@@ -10,4 +10,5 @@ public class PurchaseCouponException extends CouponSystemException {
 	public PurchaseCouponException(String string) {
 		super(string);
 	}
+	
 }

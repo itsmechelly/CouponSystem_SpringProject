@@ -14,4 +14,5 @@ public class NotAllowedException extends CouponSystemException {
 	public NotAllowedException(String s, int i) {
 		super("System error, unable to update " + s + " " + i + " - this function not Allowed.");
 	}
+	
 }

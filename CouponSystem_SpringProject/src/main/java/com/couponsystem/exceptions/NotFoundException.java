@@ -14,4 +14,5 @@ public class NotFoundException extends CouponSystemException {
 	public NotFoundException(String s, double d) {
 		super("System error, unable to find " + s + d + ".");
 	}
+	
 }

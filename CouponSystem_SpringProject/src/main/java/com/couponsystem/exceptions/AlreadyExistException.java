@@ -10,4 +10,5 @@ public class AlreadyExistException extends CouponSystemException{
 	public AlreadyExistException(String string, String string2) {
 		super("Error entering new details.\r\n" + string + string2 + ", already exists.\r\n" + "Please try again.");
 	}
+	
 }

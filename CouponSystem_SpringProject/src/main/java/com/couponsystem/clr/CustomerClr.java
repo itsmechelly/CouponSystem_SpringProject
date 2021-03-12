@@ -112,4 +112,5 @@ public class CustomerClr implements CommandLineRunner {
 
 		System.out.println(customerController.getCustomerDetails(tokenManager.tokenForClrTest()));
 	}
+	
 }

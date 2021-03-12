@@ -18,4 +18,5 @@ public class CouponSystemException extends Exception{
 	public CouponSystemException(String string, String string2) {
 		super(string + string2);
 	}
+	
 }
