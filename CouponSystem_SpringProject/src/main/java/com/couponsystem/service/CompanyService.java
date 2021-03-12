@@ -52,22 +52,12 @@ public class CompanyService extends ClientService {
 //	------------------------------------------------------------------------------------------------------------
 
 	public Coupon addCompanyCoupon(Coupon coupon) throws AlreadyExistException, LogException {
-		Company compFromDb = companyDbdao.findCompanyById(companyId);
-		List<Coupon> coupListFromDb = compFromDb.getCoupons();
 
-		for (Coupon cc : coupListFromDb) {
-			if (coupon.getTitle().equals(cc.getTitle())) {
-				throw new AlreadyExistException("Company title ", coupon.getTitle());
-			}
+		if (couponDbdao.existsByCompanyIdAndTitle(this.companyId, coupon.getTitle())) {
+			throw new AlreadyExistException("Company title ", coupon.getTitle());
 		}
-
 		coupon.setCompanyId(companyId);
 		couponDbdao.addCoupon(coupon);
-
-		coupListFromDb.add(coupon);
-		compFromDb.setCoupons(coupListFromDb);
-		companyDbdao.updateCompany(compFromDb);
-
 		return coupon;
 	}
 
