@@ -48,7 +48,7 @@ public class AdminService extends ClientService {
 			return companyDbdao.addCompany(company);
 		}
 		Optional<Company> compFromDb = companyDbdao.findById(company.getId());
-		List<Coupon> coupListFromDb = (couponDbdao.findAllCouponsByCompanyId(compFromDb.get().getId()));
+		List<Coupon> coupListFromDb = (couponDbdao.findByCompanyId(compFromDb.get().getId()));
 		for (Coupon coupons : coupListFromDb) {
 			company.getCoupons().add(coupons);
 		}
@@ -63,7 +63,7 @@ public class AdminService extends ClientService {
 		if (!company.getName().equalsIgnoreCase(compFromDb.get().getName())) {
 			throw new NotAllowedException("company name to", company.getName());
 		}
-		List<Coupon> coupListFromDb = couponDbdao.findAllCouponsByCompanyId(compFromDb.get().getId());
+		List<Coupon> coupListFromDb = couponDbdao.findByCompanyId(compFromDb.get().getId());
 		for (Coupon coupons : coupListFromDb) {
 			company.getCoupons().add(coupons);
 		}

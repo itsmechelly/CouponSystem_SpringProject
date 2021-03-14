@@ -1,6 +1,5 @@
 package com.couponsystem.service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -102,7 +101,7 @@ public class CompanyService extends ClientService {
 
 	public List<Coupon> getAllCompaniesCoupons() throws LogException, NotFoundException {
 		
-		List<Coupon> coupFromDb = couponDbdao.findAllCouponsByCompanyId(this.companyId);
+		List<Coupon> coupFromDb = couponDbdao.findByCompanyId(this.companyId);
 		
 		if (coupFromDb.isEmpty())
 			throw new NotFoundException("coupons details.");
@@ -111,7 +110,7 @@ public class CompanyService extends ClientService {
 
 	public List<Coupon> getAllCouponsByCategory(CouponCategory couponCategory) throws NotFoundException, LogException {
 		
-		List<Coupon> coupFromDb = couponDbdao.findAllCouponsByCompanyIdAndCategory(this.companyId, couponCategory);
+		List<Coupon> coupFromDb = couponDbdao.findByCompanyIdAndCategory(this.companyId, couponCategory);
 		
 		if (coupFromDb.isEmpty())
 			throw new NotFoundException("coupons from category type " + couponCategory + ".");
@@ -119,23 +118,12 @@ public class CompanyService extends ClientService {
 	}
 
 	public List<Coupon> getAllCouponsUnderMaxPrice(double maxPrice) throws LogException, NotFoundException {
-		List<Coupon> coupFromDbById = couponDbdao.findAllCouponsByCompanyId(companyId);
-		if (coupFromDbById.isEmpty()) {
-			throw new NotFoundException("coupons details.");
-		}
-
-		List<Coupon> CouponsUnderMaxPrice = new ArrayList<Coupon>();
-		for (Coupon c : coupFromDbById) {
-			if (c.getPrice() < maxPrice) {
-				CouponsUnderMaxPrice.add(c);
-			}
-		}
-
-		if (CouponsUnderMaxPrice.isEmpty()) {
+		
+		List<Coupon> coupFromDb = couponDbdao.findByCompanyIdAndPriceLessThan(this.companyId, maxPrice);
+		
+		if (coupFromDb.isEmpty())
 			throw new NotFoundException("coupons under price ", maxPrice);
-		}
-
-		return CouponsUnderMaxPrice;
+		return coupFromDb;
 	}
 
 	public Company getCompanyDetails() throws NotFoundException, LogException {
