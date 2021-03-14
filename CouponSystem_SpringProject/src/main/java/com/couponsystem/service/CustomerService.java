@@ -54,7 +54,7 @@ public class CustomerService extends ClientService {
 
 		Customer custFromDb = customerDbdao.findCustomerById(customerId);
 		List<Coupon> coupListFromDb = customerDbdao.findCustomerById(customerId).getCoupons();
-		Coupon coupFromDb = couponDbdao.findCouponByTitle(coupon.getTitle());
+		Coupon coupFromDb = couponDbdao.findByTitle(coupon.getTitle());
 
 		if (coupListFromDb.contains(coupFromDb)) {
 			throw new PurchaseCouponException(

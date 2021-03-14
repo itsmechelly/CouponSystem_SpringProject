@@ -83,7 +83,7 @@ public class CompanyController extends ClientController {
 
 		try {
 			tokenManager.isTokenExist(token);
-			return ResponseEntity.ok(((CompanyService) tokenManager.getClientService(token)).addCompanyCoupon(coupon));
+			return ResponseEntity.ok(((CompanyService) tokenManager.getClientService(token)).addCoupon(coupon));
 		} catch (LogException e) {
 			return new ResponseEntity<>(e.getMessage(), HttpStatus.UNAUTHORIZED);
 		} catch (AlreadyExistException e) {
@@ -100,7 +100,7 @@ public class CompanyController extends ClientController {
 		try {
 			tokenManager.isTokenExist(token);
 			return ResponseEntity
-					.ok(((CompanyService) tokenManager.getClientService(token)).updateCompanyCoupon(coupon));
+					.ok(((CompanyService) tokenManager.getClientService(token)).updateCoupon(coupon));
 		} catch (LogException e) {
 			return new ResponseEntity<>(e.getMessage(), HttpStatus.UNAUTHORIZED);
 		} catch (NotFoundException e) {
@@ -117,7 +117,7 @@ public class CompanyController extends ClientController {
 		try {
 			tokenManager.isTokenExist(token);
 			return ResponseEntity
-					.ok(((CompanyService) tokenManager.getClientService(token)).deleteCompanyCoupon(couponId));
+					.ok(((CompanyService) tokenManager.getClientService(token)).deleteCoupon(couponId));
 		} catch (LogException e) {
 			return new ResponseEntity<>(e.getMessage(), HttpStatus.UNAUTHORIZED);
 		} catch (NotFoundException e) {
@@ -130,7 +130,7 @@ public class CompanyController extends ClientController {
 
 		try {
 			tokenManager.isTokenExist(token);
-			return ResponseEntity.ok(((CompanyService) tokenManager.getClientService(token)).getAllCompaniesCoupons());
+			return ResponseEntity.ok(((CompanyService) tokenManager.getClientService(token)).getAllCoupons());
 		} catch (LogException e) {
 			return new ResponseEntity<>(e.getMessage(), HttpStatus.UNAUTHORIZED);
 		} catch (NotFoundException e) {

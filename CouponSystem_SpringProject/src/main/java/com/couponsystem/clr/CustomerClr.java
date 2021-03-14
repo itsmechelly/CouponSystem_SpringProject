@@ -60,11 +60,11 @@ public class CustomerClr implements CommandLineRunner {
 		ClrUtils.testSeparatedLine(" --------->>>>>>>> Going to test customerController.purchaseCoupon:");
 
 		System.out
-		.println(customerController.purchaseCoupon(couponRepository.findCouponById(2), tokenManager.tokenForClrTest()));		
+		.println(customerController.purchaseCoupon(couponRepository.findById(2), tokenManager.tokenForClrTest()));		
 		System.out
-				.println(customerController.purchaseCoupon(couponRepository.findCouponById(4), tokenManager.tokenForClrTest()));
+				.println(customerController.purchaseCoupon(couponRepository.findById(4), tokenManager.tokenForClrTest()));
 		System.out
-				.println(customerController.purchaseCoupon(couponRepository.findCouponById(6), tokenManager.tokenForClrTest()));
+				.println(customerController.purchaseCoupon(couponRepository.findById(6), tokenManager.tokenForClrTest()));
 
 		ClrUtils.testSeparatedLine(
 				" --------->>>>>>>> Going to test *BAD REQUEST* for customerController.purchaseCoupon: (customer can't purchase the same coupon more then once)");
