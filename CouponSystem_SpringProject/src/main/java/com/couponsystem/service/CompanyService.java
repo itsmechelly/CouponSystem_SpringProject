@@ -56,31 +56,29 @@ public class CompanyService extends ClientService {
 		if (couponDbdao.existsByCompanyIdAndTitle(this.companyId, coupon.getTitle())) {
 			throw new AlreadyExistException("Company title ", coupon.getTitle());
 		}
+		
 		coupon.setCompanyId(companyId);
 		couponDbdao.addCoupon(coupon);
 		return coupon;
 	}
 
-	public Coupon updateCompanyCoupon(Coupon coupon) throws LogException, NotFoundException, NotAllowedException {
-		List<Coupon> coupListFromDb = couponDbdao.findAllCouponsByCompanyId(companyId);
-		Coupon couponByTitle = couponDbdao.findCouponByTitle(coupon.getTitle());
-
-		if (coupListFromDb.isEmpty()) {
-			throw new NotFoundException("coupon details.");
+	public Coupon updateCompanyCoupon(Coupon coupon) throws LogException, NotFoundException, NotAllowedException, AlreadyExistException {
+		
+		Optional<Coupon> coupFromDb1 = Optional.of(couponDbdao.findCouponByCompanyIdAndTitle(this.companyId, coupon.getTitle()));
+		Optional<Coupon> coupFromDb2 = Optional.of(couponDbdao.findCouponById(coupon.getId()));
+		
+		if (coupon.getId() != coupFromDb1.get().getId()) {
+			throw new NotAllowedException("coupon id number", coupon.getId());
 		}
-		if (couponByTitle != null) {
-			if (coupon.getId() != couponByTitle.getId()) {
-				throw new NotAllowedException("coupon id number", coupon.getId());
-			}
-			if (coupon.getCompanyId() != (companyId)) {
-				throw new NotAllowedException("company id number", companyId);
-			}
-
-			couponDbdao.updateCoupon(coupon);
-
-			return coupon;
+		if (coupon.getCompanyId() != coupFromDb2.get().getCompanyId()) {
+			throw new NotAllowedException("company id number", this.companyId);
 		}
-		throw new NotFoundException("coupon details.");
+		if (couponDbdao.existsByTitleAndIdNot(coupon.getTitle(), coupon.getId())) {
+			throw new AlreadyExistException("Company title ", coupon.getTitle());
+		}
+
+		couponDbdao.updateCoupon(coupon);
+		return coupon;
 	}
 
 	public String deleteCompanyCoupon(int couponId) throws NotFoundException, LogException {

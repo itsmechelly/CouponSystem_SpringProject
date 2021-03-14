@@ -62,9 +62,16 @@ public class CouponDbdao {
 	public List<Coupon> findAllCouponsByCategory(CouponCategory couponCategory) {
 		return couponRepository.findAllCouponsByCategory(couponCategory);
 	}
-
+/////////
 	public boolean existsByCompanyIdAndTitle(int companyId, String title) {
 		return couponRepository.existsByCompanyIdAndTitle(companyId, title);
 	}
 
+	public Coupon findCouponByCompanyIdAndTitle(int companyId, String title) {
+		return couponRepository.findCouponByCompanyIdAndTitle(companyId, title);
+	}
+
+	public boolean existsByTitleAndIdNot(String title, int id) {
+		return couponRepository.existsByTitleAndIdNot(title, id);
+	}
 }

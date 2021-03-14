@@ -177,7 +177,7 @@ public class CompanyClr implements CommandLineRunner {
 		ClrUtils.testSeparatedLine(
 				" --------->>>>>>>> Going to test *BAD REQUEST* for companyController.updateCoupon: (update couponId not allowed)");
 
-		coup3.setId(33);
+		coup3.setId(1);
 		System.out.println(companyController.updateCompanyCoupon(coup3, tokenManager.tokenForClrTest()));
 
 		ClrUtils.testSeparatedLine(" --------->>>>>>>> Going to test companyController.deleteCompanyCoupon:");

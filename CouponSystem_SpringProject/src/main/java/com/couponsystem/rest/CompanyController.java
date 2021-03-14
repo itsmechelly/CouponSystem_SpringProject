@@ -95,7 +95,7 @@ public class CompanyController extends ClientController {
 
 	@PutMapping("/updateCompanyCoupon")
 	public ResponseEntity<?> updateCompanyCoupon(@RequestBody Coupon coupon,
-			@RequestHeader(name = "CouponSystem_Header") String token) {
+			@RequestHeader(name = "CouponSystem_Header") String token) throws AlreadyExistException {
 
 		try {
 			tokenManager.isTokenExist(token);
