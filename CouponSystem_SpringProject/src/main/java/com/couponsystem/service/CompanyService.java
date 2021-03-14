@@ -104,22 +104,18 @@ public class CompanyService extends ClientService {
 		
 		List<Coupon> coupFromDb = couponDbdao.findAllCouponsByCompanyId(this.companyId);
 		
-		if (coupFromDb != null)
-			return coupFromDb;
-		throw new NotFoundException("coupons details.");
+		if (coupFromDb.isEmpty())
+			throw new NotFoundException("coupons details.");
+		return coupFromDb;
 	}
 
 	public List<Coupon> getAllCouponsByCategory(CouponCategory couponCategory) throws NotFoundException, LogException {
-		List<Coupon> coupFromDbById = couponDbdao.findAllCouponsByCompanyId(companyId);
-		if (coupFromDbById.isEmpty()) {
-			throw new NotFoundException("coupons details.");
-		}
-
-		List<Coupon> coupFromDbByCategory = couponDbdao.findAllCouponsByCategory(couponCategory);
-		if (coupFromDbByCategory.isEmpty()) {
+		
+		List<Coupon> coupFromDb = couponDbdao.findAllCouponsByCompanyIdAndCategory(this.companyId, couponCategory);
+		
+		if (coupFromDb.isEmpty())
 			throw new NotFoundException("coupons from category type " + couponCategory + ".");
-		}
-		return coupFromDbByCategory;
+		return coupFromDb;
 	}
 
 	public List<Coupon> getAllCouponsUnderMaxPrice(double maxPrice) throws LogException, NotFoundException {
