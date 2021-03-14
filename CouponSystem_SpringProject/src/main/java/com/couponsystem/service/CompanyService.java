@@ -56,7 +56,6 @@ public class CompanyService extends ClientService {
 			throw new AlreadyExistException("Company title ", coupon.getTitle());
 		coupon.setCompanyId(companyId);
 		couponDbdao.addCoupon(coupon);
-		
 		return coupon;
 	}
 
@@ -127,11 +126,12 @@ public class CompanyService extends ClientService {
 	}
 
 	public Company getCompanyDetails() throws NotFoundException, LogException {
-		Optional<Company> companyFromDb = Optional.of(companyDbdao.findCompanyById(companyId));
-		if (companyFromDb.isPresent()) {
-			return companyDbdao.findCompanyById(companyId);
-		}
-		throw new NotFoundException("company details.");
+		
+		Optional<Company> companyFromDb = Optional.of(companyDbdao.findCompanyById(this.companyId));
+		
+		if (companyFromDb.isEmpty())
+			throw new NotFoundException("company details.");
+		return companyDbdao.findCompanyById(companyId);
 	}
 
 }
