@@ -12,7 +12,6 @@ public interface CouponRepository extends JpaRepository<Coupon, Integer> {
 
 	Coupon findCouponById (int id);//Added to use in customerService.purchaseCoupon;
 	Coupon findCouponByTitle(String title);//Added to use in companyService.addCompanyCoupon;
-	List<Coupon> findByTitle(String title);// Added to use in customerService.purchaseCoupon;
 	List<Coupon> findByEndDateBefore(Date date);// Added to use in CouponExpirationDailyJob.applyExpirationJob;
 	List<Coupon> findAllCouponsByCategory(CouponCategory couponCategory);// Added to use in companyService.findAllCouponsByCategory;
 ////////////

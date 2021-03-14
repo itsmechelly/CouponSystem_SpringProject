@@ -53,12 +53,11 @@ public class CompanyService extends ClientService {
 
 	public Coupon addCompanyCoupon(Coupon coupon) throws AlreadyExistException, LogException {
 
-		if (couponDbdao.existsByCompanyIdAndTitle(this.companyId, coupon.getTitle())) {
+		if (couponDbdao.existsByCompanyIdAndTitle(this.companyId, coupon.getTitle()))
 			throw new AlreadyExistException("Company title ", coupon.getTitle());
-		}
-		
 		coupon.setCompanyId(companyId);
 		couponDbdao.addCoupon(coupon);
+		
 		return coupon;
 	}
 
@@ -67,17 +66,14 @@ public class CompanyService extends ClientService {
 		Optional<Coupon> coupFromDb1 = Optional.of(couponDbdao.findCouponByCompanyIdAndTitle(this.companyId, coupon.getTitle()));
 		Optional<Coupon> coupFromDb2 = Optional.of(couponDbdao.findCouponById(coupon.getId()));
 		
-		if (coupon.getId() != coupFromDb1.get().getId()) {
+		if (coupon.getId() != coupFromDb1.get().getId())
 			throw new NotAllowedException("coupon id number", coupon.getId());
-		}
-		if (coupon.getCompanyId() != coupFromDb2.get().getCompanyId()) {
+		if (coupon.getCompanyId() != coupFromDb2.get().getCompanyId())
 			throw new NotAllowedException("company id number", this.companyId);
-		}
-		if (couponDbdao.existsByTitleAndIdNot(coupon.getTitle(), coupon.getId())) {
+		if (couponDbdao.existsByTitleAndIdNot(coupon.getTitle(), coupon.getId()))
 			throw new AlreadyExistException("Company title ", coupon.getTitle());
-		}
-
 		couponDbdao.updateCoupon(coupon);
+		
 		return coupon;
 	}
 
@@ -107,6 +103,7 @@ public class CompanyService extends ClientService {
 	public List<Coupon> getAllCompaniesCoupons() throws LogException, NotFoundException {
 		
 		List<Coupon> coupFromDb = couponDbdao.findAllCouponsByCompanyId(this.companyId);
+		
 		if (coupFromDb != null)
 			return coupFromDb;
 		throw new NotFoundException("coupons details.");

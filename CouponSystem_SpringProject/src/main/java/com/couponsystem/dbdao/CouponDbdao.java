@@ -47,14 +47,9 @@ public class CouponDbdao {
 		return couponRepository.findCouponByTitle(title);
 	}
 
-	public List<Coupon> findByTitle(String title) {
-		return couponRepository.findByTitle(title);
-	}
-
 	public List<Coupon> findByEndDateBefore(Date date) {
 		return couponRepository.findByEndDateBefore(date);
 	}
-
 
 	public List<Coupon> findAllCouponsByCategory(CouponCategory couponCategory) {
 		return couponRepository.findAllCouponsByCategory(couponCategory);
