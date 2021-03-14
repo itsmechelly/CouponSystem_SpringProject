@@ -105,10 +105,10 @@ public class CompanyService extends ClientService {
 	}
 
 	public List<Coupon> getAllCompaniesCoupons() throws LogException, NotFoundException {
-		Optional<Company> companyFromDb = Optional.of(companyDbdao.findCompanyById(companyId));
-		if (companyFromDb.isPresent()) {
-			return companyFromDb.get().getCoupons();
-		}
+		
+		List<Coupon> coupFromDb = couponDbdao.findAllCouponsByCompanyId(this.companyId);
+		if (coupFromDb != null)
+			return coupFromDb;
 		throw new NotFoundException("coupons details.");
 	}
 

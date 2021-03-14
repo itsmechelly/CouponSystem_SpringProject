@@ -55,9 +55,6 @@ public class CouponDbdao {
 		return couponRepository.findByEndDateBefore(date);
 	}
 
-	public List<Coupon> findAllCouponsByCompanyId(int companyId) {
-		return couponRepository.findAllCouponsByCompanyId(companyId);
-	}
 
 	public List<Coupon> findAllCouponsByCategory(CouponCategory couponCategory) {
 		return couponRepository.findAllCouponsByCategory(couponCategory);
@@ -74,4 +71,9 @@ public class CouponDbdao {
 	public boolean existsByTitleAndIdNot(String title, int id) {
 		return couponRepository.existsByTitleAndIdNot(title, id);
 	}
+	
+	public List<Coupon> findAllCouponsByCompanyId(int companyId) {
+		return couponRepository.findAllCouponsByCompanyId(companyId);
+	}
+	
 }
