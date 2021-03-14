@@ -76,25 +76,10 @@ public class CompanyService extends ClientService {
 	}
 
 	public String deleteCompanyCoupon(int couponId) throws NotFoundException, LogException {
-		Company compFromDb = companyDbdao.findCompanyById(companyId);
-		List<Coupon> coupListFromDb = compFromDb.getCoupons();
-		Coupon coupFromDb = couponDbdao.findCouponById(couponId);
-
-		if (coupListFromDb.isEmpty()) {
+		
+		if (!couponDbdao.existsById(couponId))
 			throw new NotFoundException("coupons details.");
-		}
-
-		if (coupFromDb == null) {
-			throw new NotFoundException("coupon details.");
-		}
-
-		coupListFromDb.remove(coupFromDb);
-		compFromDb.setCoupons(coupListFromDb);
-		companyDbdao.updateCompany(compFromDb);
-
-		if (couponDbdao.existsById(couponId)) {
-			couponDbdao.deleteCoupon(couponId);
-		}
+		couponDbdao.deleteCoupon(couponId);
 		return "Coupon with id number " + couponId + " deleted successfully.";
 	}
 

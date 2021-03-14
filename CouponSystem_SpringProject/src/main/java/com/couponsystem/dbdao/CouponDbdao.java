@@ -35,8 +35,8 @@ public class CouponDbdao {
 		couponRepository.deleteById(couponId);
 	}
 
-	public boolean existsById(int companyId) {
-		return couponRepository.existsById(companyId);
+	public boolean existsById(int couponId) {
+		return couponRepository.existsById(couponId);
 	}
 
 	public Coupon findCouponById(int couponId) {
