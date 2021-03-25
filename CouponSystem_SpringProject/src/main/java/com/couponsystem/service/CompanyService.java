@@ -37,9 +37,8 @@ public class CompanyService extends ClientService {
 	@Override
 	public boolean login(String email, String password) {
 		Company company = companyDbdao.findCompanyByEmailAndPassword(email, password);
-		if (company != null) {
+		if (company != null)
 			return true;
-		}
 		return false;
 	}
 

@@ -38,9 +38,8 @@ public class CustomerService extends ClientService {
 	@Override
 	public boolean login(String email, String password) {
 		Customer customer = customerDbdao.findCustomerByEmailAndPassword(email, password);
-		if (customer != null) {
+		if (customer != null)
 			return true;
-		}
 		return false;
 	}
 

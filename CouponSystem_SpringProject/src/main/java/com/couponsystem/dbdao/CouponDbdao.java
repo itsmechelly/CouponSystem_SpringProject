@@ -68,12 +68,27 @@ public class CouponDbdao {
 		return couponRepository.findByCompanyId(companyId);
 	}
 
-	public List<Coupon> findByCompanyIdAndCategory(int companyId, CouponCategory couponCategory) {
-		return couponRepository.findByCompanyIdAndCategory(companyId, couponCategory);
+	public List<Coupon> findByCompanyIdAndCategory(int companyId, CouponCategory category) {
+		return couponRepository.findByCompanyIdAndCategory(companyId, category);
 	}
 
 	public List<Coupon> findByCompanyIdAndPriceLessThan(int companyId, double price) {
 		return couponRepository.findByCompanyIdAndPriceLessThan(companyId, price);
 	}
 
+//////////////////////////////////////////////////////////////////////////////////////////////////
+	
+	public List<Coupon> findByCustomerId(int id) {
+		return couponRepository.findByCustomerId(id);
+	}
+
+	public List<Coupon> findByCustomerIdAndCategory(int id, CouponCategory category) {
+		return couponRepository.findByCustomerIdAndCategory(id, category);
+	}
+
+	public List<Coupon> findByCustomerIdAndPriceLessThan(int id, double price) {
+		return couponRepository.findByCustomerIdAndPriceLessThan(id, price);
+	}
+
+	
 }
