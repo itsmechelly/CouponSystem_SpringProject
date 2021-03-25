@@ -58,4 +58,8 @@ public class CustomerDbdao {
 		return customerRepository.findAll();
 	}
 	
+	public boolean existsById(int id) {
+		return customerRepository.existsById(id);
+	}
+	
 }

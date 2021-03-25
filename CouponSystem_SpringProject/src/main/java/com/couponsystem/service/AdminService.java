@@ -47,25 +47,28 @@ public class AdminService extends ClientService {
 	}
 
 	public Company updateCompany(Company company) throws NotFoundException, NotAllowedException, LogException {
+		
 		Optional<Company> compFromDb = companyDbdao.findById(company.getId());
+		
 		if (compFromDb.isEmpty()) {
 			throw new NotFoundException("company details.");
 		}
 		if (!company.getName().equalsIgnoreCase(compFromDb.get().getName())) {
 			throw new NotAllowedException("company name to", company.getName());
 		}
+		
 		List<Coupon> coupListFromDb = couponDbdao.findByCompanyId(compFromDb.get().getId());
 		for (Coupon coupons : coupListFromDb) {
 			company.getCoupons().add(coupons);
 		}
+		
 		return companyDbdao.updateCompany(company);
 	}
 
 	public String deleteCompany(int companyId) throws NotFoundException, LogException {
-		Optional<Company> compFromDb = companyDbdao.findById(companyId);
-		if (compFromDb.isEmpty()) {
+		
+		if (!companyDbdao.existsById(companyId))
 			throw new NotFoundException("company details.");
-		}
 		companyDbdao.deleteCompany(companyId);
 		return "Request accomplished, company with id number " + companyId + " has been deleted from the system.";
 	}
@@ -108,11 +111,9 @@ public class AdminService extends ClientService {
 	}
 
 	public String deleteCustomer(int customerId) throws NotFoundException, LogException {
-		Optional<Customer> custFromDb = customerDbdao.findById(customerId);
-		if (custFromDb.isEmpty()) {
-			throw new NotFoundException("customer details.");
-		}
-
+		
+		if (!customerDbdao.existsById(customerId))
+			throw new NotFoundsException("customer details.");
 		customerDbdao.deleteCustomer(customerId);
 		return "Request accomplished, customer with id number " + customerId + " has been deleted from the system.";
 	}

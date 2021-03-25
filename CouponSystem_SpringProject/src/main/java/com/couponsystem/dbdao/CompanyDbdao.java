@@ -69,4 +69,8 @@ public class CompanyDbdao {
 	public boolean existsByName(String name) {
 		return companyRepository.existsByName(name);
 	}
+	
+	public boolean existsById(int id) {
+		return companyRepository.existsById(id);
+	}
 }
