@@ -74,10 +74,9 @@ public class AdminService extends ClientService {
 	}
 
 	public Company getOneCompanyById(int companyId) throws NotFoundException, LogException {
-		Optional<Company> compFromDb = companyDbdao.findById(companyId);
-		if (compFromDb.isEmpty()) {
+		
+		if (!companyDbdao.existsById(companyId))
 			throw new NotFoundException("company details.");
-		}
 		return companyDbdao.findCompanyById(companyId);
 	}
 
@@ -119,10 +118,9 @@ public class AdminService extends ClientService {
 	}
 
 	public Customer getOneCustomerById(int customerId) throws NotFoundException, LogException {
-		Optional<Customer> custFromDb = Optional.of(customerDbdao.findCustomerById(customerId));
-		if (custFromDb.isEmpty()) {
+
+		if (!customerDbdao.existsById(customerId))
 			throw new NotFoundException("customer details.");
-		}
 		return customerDbdao.findCustomerById(customerId);
 	}
 
