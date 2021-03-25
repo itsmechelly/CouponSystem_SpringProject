@@ -1,7 +1,6 @@
 package com.couponsystem.service;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -78,62 +77,38 @@ public class CustomerService extends ClientService {
 
 	public List<Coupon> getAllCoupons() throws NotFoundException, LogException {
 
-		Optional<Customer> customerFromDb = Optional.of(customerDbdao.findCustomerById(customerId));
+		List<Coupon> customerFromDb = couponDbdao.getCouponsByCustomersId(customerId);
 
-		if (customerFromDb.isEmpty()) {
+		if (customerFromDb.isEmpty())
 			throw new NotFoundException("coupons details.");
-		}
-
-		return customerFromDb.get().getCoupons();
+		return customerFromDb;
 	}
 
 	public List<Coupon> getAllCouponsByCategory(CouponCategory category) throws NotFoundException, LogException {
 
-		List<Coupon> coupFromDbById = customerDbdao.findCustomerById(customerId).getCoupons();
-		if (coupFromDbById.isEmpty()) {
-			throw new NotFoundException("coupons details.");
-		}
+		List<Coupon> coupFromDb = couponDbdao.getCouponsByCustomersIdAndCategory(customerId, category);
 
-		List<Coupon> coupByCategory = new ArrayList<Coupon>();
-		for (Coupon c : coupFromDbById) {
-			if (c.getCategory().equals(category)) {
-				coupByCategory.add(c);
-			}
-		}
-
-		if (coupByCategory.isEmpty()) {
-			throw new NotFoundException("coupons of category type " + category + ".");
-		}
-		return coupByCategory;
+		if (coupFromDb.isEmpty())
+			throw new NotFoundException("coupons from category type " + category + ".");
+		return coupFromDb;
 	}
 
 	public List<Coupon> getAllCouponsUnderMaxPrice(double maxPrice) throws LogException, NotFoundException {
 
-		List<Coupon> coupFromDbById = customerDbdao.findCustomerById(customerId).getCoupons();
-		if (coupFromDbById.isEmpty()) {
-			throw new NotFoundException("coupons details.");
-		}
+		List<Coupon> coupFromDb = couponDbdao.getCouponsByCustomersIdAndPriceLessThan(customerId, maxPrice);
 
-		List<Coupon> CouponsUnderMaxPrice = new ArrayList<Coupon>();
-		for (Coupon c : coupFromDbById) {
-			if (c.getPrice() < maxPrice) {
-				CouponsUnderMaxPrice.add(c);
-			}
-		}
-
-		if (CouponsUnderMaxPrice.isEmpty()) {
+		if (coupFromDb.isEmpty())
 			throw new NotFoundException("coupons under price ", maxPrice);
-		}
-		return CouponsUnderMaxPrice;
+		return coupFromDb;
 	}
 
 	public Customer getCustomerDetails() throws NotFoundException, LogException {
 
 		Optional<Customer> customerFromDb = Optional.of(customerDbdao.findCustomerById(customerId));
-		if (customerFromDb.isPresent()) {
-			return customerDbdao.findCustomerById(customerId);
-		}
-		throw new NotFoundException("customer details.");
+
+		if (customerFromDb.isEmpty())
+			throw new NotFoundException("customer details.");
+		return customerDbdao.findCustomerById(customerId);
 	}
 
 }
