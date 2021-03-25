@@ -81,10 +81,11 @@ public class AdminService extends ClientService {
 	}
 
 	public List<Company> getAllCompanies() throws NotFoundException, LogException {
+		
 		Optional<List<Company>> compFromDb = Optional.of(companyDbdao.findAllCompanies());
-		if (compFromDb.isEmpty()) {
+		
+		if (compFromDb.isEmpty())
 			throw new NotFoundException("companies details.");
-		}
 		return companyDbdao.findAllCompanies();
 	}
 
@@ -125,10 +126,11 @@ public class AdminService extends ClientService {
 	}
 
 	public List<Customer> getAllCustomers() throws NotFoundException, LogException {
+		
 		Optional<List<Customer>> custListFromDb = Optional.of(customerDbdao.findAllCustomers());
-		if (custListFromDb.isEmpty()) {
+		
+		if (custListFromDb.isEmpty())
 			throw new NotFoundException("customers details.");
-		}
 		return customerDbdao.findAllCustomers();
 	}
 
