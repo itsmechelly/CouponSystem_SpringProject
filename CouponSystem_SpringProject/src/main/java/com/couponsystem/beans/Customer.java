@@ -18,10 +18,12 @@ import javax.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 @Entity
 @Table(name = "customers")
 @Data
+@ToString(exclude = "coupons")
 @NoArgsConstructor
 @AllArgsConstructor
 public class Customer {
@@ -37,11 +39,8 @@ public class Customer {
 	private String email;
 	@Column(nullable = true)
 	private String password;
-	@ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH})
-	@JoinTable(name = "customers_vs_coupons",
-			joinColumns = @JoinColumn(name = "customer_id"),
-			inverseJoinColumns = @JoinColumn(name = "coupon_id")	
-	)
+	@ManyToMany(fetch = FetchType.LAZY, cascade = { CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH })
+	@JoinTable(name = "customers_vs_coupons", joinColumns = @JoinColumn(name = "customer_id"), inverseJoinColumns = @JoinColumn(name = "coupon_id"))
 	private List<Coupon> coupons = new ArrayList<>();
-	
+
 }
