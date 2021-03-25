@@ -33,6 +33,7 @@ public class Company {
 	private String email;
 	@Column(nullable = true)
 	private String password;
+	//TODO
 	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
 	private List<Coupon> coupons = new ArrayList<>();
 	

@@ -77,18 +77,18 @@ public class CouponDbdao {
 	}
 
 //////////////////////////////////////////////////////////////////////////////////////////////////
-	
-	public List<Coupon> findByCustomerId(int id) {
-		return couponRepository.findByCustomerId(id);
-	}
-
-	public List<Coupon> findByCustomerIdAndCategory(int id, CouponCategory category) {
-		return couponRepository.findByCustomerIdAndCategory(id, category);
-	}
-
-	public List<Coupon> findByCustomerIdAndPriceLessThan(int id, double price) {
-		return couponRepository.findByCustomerIdAndPriceLessThan(id, price);
-	}
+//	
+//	public List<Coupon> findByCustomerId(int id) {
+//		return couponRepository.findByCustomerId(id);
+//	}
+//
+//	public List<Coupon> findByCustomerIdAndCategory(int id, CouponCategory category) {
+//		return couponRepository.findByCustomerIdAndCategory(id, category);
+//	}
+//
+//	public List<Coupon> findByCustomerIdAndPriceLessThan(int id, double price) {
+//		return couponRepository.findByCustomerIdAndPriceLessThan(id, price);
+//	}
 
 	
 }

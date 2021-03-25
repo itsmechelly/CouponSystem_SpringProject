@@ -21,9 +21,9 @@ public interface CouponRepository extends JpaRepository<Coupon, Integer> {
 	List<Coupon> findByCompanyIdAndCategory(int companyId, CouponCategory category);
 	List<Coupon> findByCompanyIdAndPriceLessThan(int companyId, double price);
 //////////////////////////////////////////////////////////////////////////////////////////
-	List<Coupon> findByCustomerId(int id);
-	List<Coupon> findByCustomerIdAndCategory(int id, CouponCategory category);
-	List<Coupon> findByCustomerIdAndPriceLessThan(int id, double price);
+//	List<Coupon> findByCustomerId(int id);
+//	List<Coupon> findByCustomerIdAndCategory(int id, CouponCategory category);
+//	List<Coupon> findByCustomerIdAndPriceLessThan(int id, double price);
 
 	
 }

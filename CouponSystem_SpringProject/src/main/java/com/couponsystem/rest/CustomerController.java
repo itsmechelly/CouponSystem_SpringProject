@@ -93,7 +93,7 @@ public class CustomerController extends ClientController {
 
 		try {
 			tokenManager.isTokenExist(token);
-			return ResponseEntity.ok(((CustomerService) tokenManager.getClientService(token)).getAllCustomerCoupons());
+			return ResponseEntity.ok(((CustomerService) tokenManager.getClientService(token)).getAllCoupons());
 		} catch (LogException e) {
 			return new ResponseEntity<>(e.getMessage(), HttpStatus.UNAUTHORIZED);
 		} catch (NotFoundException e) {

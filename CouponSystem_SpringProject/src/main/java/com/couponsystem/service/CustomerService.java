@@ -76,7 +76,7 @@ public class CustomerService extends ClientService {
 		return coupon;
 	}
 
-	public List<Coupon> getAllCustomerCoupons() throws NotFoundException, LogException {
+	public List<Coupon> getAllCoupons() throws NotFoundException, LogException {
 
 		Optional<Customer> customerFromDb = Optional.of(customerDbdao.findCustomerById(customerId));
 
@@ -87,7 +87,7 @@ public class CustomerService extends ClientService {
 		return customerFromDb.get().getCoupons();
 	}
 
-	public List<Coupon> getAllCouponsByCategory(CouponCategory couponCategory) throws NotFoundException, LogException {
+	public List<Coupon> getAllCouponsByCategory(CouponCategory category) throws NotFoundException, LogException {
 
 		List<Coupon> coupFromDbById = customerDbdao.findCustomerById(customerId).getCoupons();
 		if (coupFromDbById.isEmpty()) {
@@ -96,13 +96,13 @@ public class CustomerService extends ClientService {
 
 		List<Coupon> coupByCategory = new ArrayList<Coupon>();
 		for (Coupon c : coupFromDbById) {
-			if (c.getCategory().equals(couponCategory)) {
+			if (c.getCategory().equals(category)) {
 				coupByCategory.add(c);
 			}
 		}
 
 		if (coupByCategory.isEmpty()) {
-			throw new NotFoundException("coupons of category type " + couponCategory + ".");
+			throw new NotFoundException("coupons of category type " + category + ".");
 		}
 		return coupByCategory;
 	}
