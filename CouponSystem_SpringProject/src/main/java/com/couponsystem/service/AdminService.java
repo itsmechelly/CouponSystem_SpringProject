@@ -37,21 +37,12 @@ public class AdminService extends ClientService {
 //	------------------------------------------------------------------------------------------------------------
 
 	public Company addCompany(Company company) throws AlreadyExistException, LogException {
-		if (companyDbdao.findCompanyByEmail(company.getEmail()) != null) {
+		
+		if (companyDbdao.existsByEmail(company.getEmail()))
 			throw new AlreadyExistException("Company email ", company.getEmail());
-		}
-		if (companyDbdao.findCompanyByName(company.getName()) != null) {
+		if (companyDbdao.existsByName(company.getName()))
 			throw new AlreadyExistException("Company name ", company.getName());
-		}
 
-		if (company.getCoupons().isEmpty()) {
-			return companyDbdao.addCompany(company);
-		}
-		Optional<Company> compFromDb = companyDbdao.findById(company.getId());
-		List<Coupon> coupListFromDb = (couponDbdao.findByCompanyId(compFromDb.get().getId()));
-		for (Coupon coupons : coupListFromDb) {
-			company.getCoupons().add(coupons);
-		}
 		return companyDbdao.addCompany(company);
 	}
 

@@ -57,10 +57,8 @@ public class CustomerService extends ClientService {
 		
 		if (couponDbdao.existsByCustomersIdAndTitle(customerId, coupon.getTitle())) 
 			throw new PurchaseCouponException("Purchasing this type of coupon is limited to one use only. you are welcome to choose another coupon.");
-		
 		if (coupFromDb.getAmount() < 1)
 			throw new PurchaseCouponException("Coupon out of stock, you are welcome to choose another coupon.");
-		
 		if (coupFromDb.getEndDate().before(java.sql.Date.valueOf(LocalDate.now())))
 			throw new PurchaseCouponException("This coupon has expired, you are welcome to choose another coupon.");
 		

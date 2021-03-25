@@ -62,4 +62,11 @@ public class CompanyDbdao {
 		return companyRepository.findAll();
 	}
 
+	public boolean existsByEmail(String email) {
+		return companyRepository.existsByEmail(email);
+	}
+	
+	public boolean existsByName(String name) {
+		return companyRepository.existsByName(name);
+	}
 }
