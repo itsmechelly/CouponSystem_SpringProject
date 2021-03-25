@@ -113,7 +113,7 @@ public class AdminService extends ClientService {
 	public String deleteCustomer(int customerId) throws NotFoundException, LogException {
 		
 		if (!customerDbdao.existsById(customerId))
-			throw new NotFoundsException("customer details.");
+			throw new NotFoundException("customer details.");
 		customerDbdao.deleteCustomer(customerId);
 		return "Request accomplished, customer with id number " + customerId + " has been deleted from the system.";
 	}
