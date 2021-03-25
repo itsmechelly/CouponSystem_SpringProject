@@ -87,18 +87,10 @@ public class AdminService extends ClientService {
 	}
 
 	public Customer addCustomer(Customer customer) throws AlreadyExistException, LogException {
-		if (customerDbdao.findCustomerByEmail(customer.getEmail()) != null) {
+		
+		if (customerDbdao.existsByEmail(customer.getEmail()))
 			throw new AlreadyExistException("Customer email ", customer.getEmail());
-		}
 
-		if (customer.getCoupons().isEmpty()) {
-			return customerDbdao.addCustomer(customer);
-		}
-		Optional<Customer> custFromDb = Optional.of(customerDbdao.findCustomerById(customer.getId()));
-		List<Coupon> coupListFromDb = custFromDb.get().getCoupons();
-		for (Coupon coupons : coupListFromDb) {
-			customer.getCoupons().add(coupons);
-		}
 		return customerDbdao.addCustomer(customer);
 	}
 

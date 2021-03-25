@@ -46,8 +46,8 @@ public class CustomerDbdao {
 		return customerRepository.findById(customerId);
 	}
 	
-	public Customer findCustomerByEmail(String email) {
-		return customerRepository.findCustomerByEmail(email);
+	public boolean existsByEmail(String email) {
+		return customerRepository.existsByEmail(email);
 	}
 
 	public Customer findCustomerByEmailAndPassword(String email, String password) {
