@@ -48,31 +48,28 @@ public class CustomerService extends ClientService {
 	}
 //	------------------------------------------------------------------------------------------------------------
 
-	public Coupon purchaseCoupon(Coupon coupon) throws PurchaseCouponException, LogException {
+	public Coupon purchaseCoupon(Coupon coupon) throws PurchaseCouponException, LogException, NotFoundException {
 
+			
+		Coupon coupFromDb = couponDbdao.findById(coupon.getId());
 		Customer custFromDb = customerDbdao.findCustomerById(customerId);
-		List<Coupon> coupListFromDb = customerDbdao.findCustomerById(customerId).getCoupons();
-		Coupon coupFromDb = couponDbdao.findByTitle(coupon.getTitle());
-
-		if (coupListFromDb.contains(coupFromDb)) {
-			throw new PurchaseCouponException(
-					"Purchasing this type of coupon is limited to one use only. you are welcome to choose another coupon.");
-		}
-		if (coupFromDb.getAmount() == 0) {
+		List<Coupon> coupListFromDb = couponDbdao.getCouponsByCustomersId(customerId);
+		
+		if (couponDbdao.existsByCustomersIdAndTitle(customerId, coupon.getTitle())) 
+			throw new PurchaseCouponException("Purchasing this type of coupon is limited to one use only. you are welcome to choose another coupon.");
+		
+		if (coupFromDb.getAmount() < 1)
 			throw new PurchaseCouponException("Coupon out of stock, you are welcome to choose another coupon.");
-		}
-		if (coupFromDb.getEndDate().before(java.sql.Date.valueOf(LocalDate.now()))) {
+		
+		if (coupFromDb.getEndDate().before(java.sql.Date.valueOf(LocalDate.now())))
 			throw new PurchaseCouponException("This coupon has expired, you are welcome to choose another coupon.");
-		}
-
-		coupListFromDb.add(coupon);
+		
+		coupFromDb.setAmount(coupon.getAmount() - 1);
+		coupListFromDb.add(coupFromDb);
 		custFromDb.setCoupons(coupListFromDb);
 		customerDbdao.updateCustomer(custFromDb);
 
-		coupon.setAmount(coupon.getAmount() - 1);
-		couponDbdao.updateCoupon(coupon);
-
-		return coupon;
+		return coupFromDb;
 	}
 
 	public List<Coupon> getAllCoupons() throws NotFoundException, LogException {

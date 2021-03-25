@@ -77,7 +77,7 @@ public class CouponDbdao {
 	}
 
 //////////////////////////////////////////////////////////////////////////////////////////////////
-	
+
 	public List<Coupon> getCouponsByCustomersId(int id) {
 		return couponRepository.getCouponsByCustomersId(id);
 	}
@@ -90,5 +90,11 @@ public class CouponDbdao {
 		return couponRepository.getCouponsByCustomersIdAndPriceLessThan(id, price);
 	}
 
-	
+	public Coupon getCouponByCustomersIdAndTitle(int id, String title) {
+		return couponRepository.getCouponByCustomersIdAndTitle(id, title);
+	}
+
+	public boolean existsByCustomersIdAndTitle(int id, String title) {
+		return couponRepository.existsByCustomersIdAndTitle(id, title);
+	}
 }
