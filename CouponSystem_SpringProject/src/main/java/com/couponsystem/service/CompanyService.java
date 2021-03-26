@@ -53,6 +53,7 @@ public class CompanyService extends ClientService {
 
 		if (couponDbdao.existsByCompanyIdAndTitle(this.companyId, coupon.getTitle()))
 			throw new AlreadyExistException("Company title ", coupon.getTitle());
+		
 		coupon.setCompanyId(companyId);
 		couponDbdao.addCoupon(coupon);
 		return coupon;
@@ -70,6 +71,7 @@ public class CompanyService extends ClientService {
 			throw new NotAllowedException("company id number", this.companyId);
 		if (couponDbdao.existsByTitleAndIdNot(coupon.getTitle(), coupon.getId()))
 			throw new AlreadyExistException("Company title ", coupon.getTitle());
+		
 		couponDbdao.updateCoupon(coupon);
 		return coupon;
 	}
@@ -78,6 +80,7 @@ public class CompanyService extends ClientService {
 
 		if (!couponDbdao.existsById(couponId))
 			throw new NotFoundException("coupons details.");
+		
 		couponDbdao.deleteCoupon(couponId);
 		return "Coupon with id number " + couponId + " deleted successfully.";
 	}
@@ -88,6 +91,7 @@ public class CompanyService extends ClientService {
 
 		if (coupFromDb.isEmpty())
 			throw new NotFoundException("coupons details.");
+		
 		return coupFromDb;
 	}
 
@@ -97,6 +101,7 @@ public class CompanyService extends ClientService {
 
 		if (coupFromDb.isEmpty())
 			throw new NotFoundException("coupons from category type " + couponCategory + ".");
+		
 		return coupFromDb;
 	}
 
@@ -106,6 +111,7 @@ public class CompanyService extends ClientService {
 
 		if (coupFromDb.isEmpty())
 			throw new NotFoundException("coupons under price ", maxPrice);
+		
 		return coupFromDb;
 	}
 
@@ -115,6 +121,7 @@ public class CompanyService extends ClientService {
 
 		if (companyFromDb.isEmpty())
 			throw new NotFoundException("company details.");
+		
 		return companyDbdao.findCompanyById(companyId);
 	}
 

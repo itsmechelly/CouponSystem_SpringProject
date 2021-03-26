@@ -76,6 +76,7 @@ public class CustomerService extends ClientService {
 
 		if (customerFromDb.isEmpty())
 			throw new NotFoundException("coupons details.");
+		
 		return customerFromDb;
 	}
 
@@ -85,6 +86,7 @@ public class CustomerService extends ClientService {
 
 		if (coupFromDb.isEmpty())
 			throw new NotFoundException("coupons from category type " + category + ".");
+		
 		return coupFromDb;
 	}
 
@@ -94,6 +96,7 @@ public class CustomerService extends ClientService {
 
 		if (coupFromDb.isEmpty())
 			throw new NotFoundException("coupons under price ", maxPrice);
+		
 		return coupFromDb;
 	}
 
@@ -103,6 +106,7 @@ public class CustomerService extends ClientService {
 
 		if (customerFromDb.isEmpty())
 			throw new NotFoundException("customer details.");
+		
 		return customerDbdao.findCustomerById(customerId);
 	}
 
