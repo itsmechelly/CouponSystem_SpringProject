@@ -40,7 +40,7 @@ public class AdminService extends ClientService {
 		
 		if (companyDbdao.existsByEmail(company.getEmail()))
 			throw new AlreadyExistException("Company email ", company.getEmail());
-		if (companyDbdao.existsByName(company.getName()))
+		if (companyDbdao.existsByNameIgnoreCase(company.getName()))
 			throw new AlreadyExistException("Company name ", company.getName());
 
 		return companyDbdao.addCompany(company);
@@ -48,19 +48,12 @@ public class AdminService extends ClientService {
 
 	public Company updateCompany(Company company) throws NotFoundException, NotAllowedException, LogException {
 		
-		Optional<Company> compFromDb = companyDbdao.findById(company.getId());
+		Company compFromDb = companyDbdao.findCompanyById(company.getId());
 		
-		if (compFromDb.isEmpty()) {
+		if (compFromDb == null)
 			throw new NotFoundException("company details.");
-		}
-		if (!company.getName().equalsIgnoreCase(compFromDb.get().getName())) {
+		if (!company.getName().equalsIgnoreCase(compFromDb.getName()))
 			throw new NotAllowedException("company name to", company.getName());
-		}
-		
-		List<Coupon> coupListFromDb = couponDbdao.findByCompanyId(compFromDb.get().getId());
-		for (Coupon coupons : coupListFromDb) {
-			company.getCoupons().add(coupons);
-		}
 		
 		return companyDbdao.updateCompany(company);
 	}
@@ -98,15 +91,12 @@ public class AdminService extends ClientService {
 	}
 
 	public Customer updateCustomer(Customer customer) throws NotFoundException, LogException {
-		Optional<Customer> custFromDb = Optional.of(customerDbdao.findCustomerById(customer.getId()));
-		if (custFromDb.isEmpty()) {
+		
+		Customer custFromDb = customerDbdao.findCustomerById(customer.getId());
+		
+		if (custFromDb == null)
 			throw new NotFoundException("customer details.");
-		}
 
-		List<Coupon> coupListFromDb = custFromDb.get().getCoupons();
-		for (Coupon coupons : coupListFromDb) {
-			customer.getCoupons().add(coupons);
-		}
 		return customerDbdao.updateCustomer(customer);
 	}
 
