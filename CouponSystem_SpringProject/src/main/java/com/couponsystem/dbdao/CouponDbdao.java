@@ -35,11 +35,11 @@ public class CouponDbdao {
 		couponRepository.deleteById(couponId);
 	}
 
-	public boolean existsById(int couponId) {
+	public boolean couponExistsById(int couponId) {
 		return couponRepository.existsById(couponId);
 	}
 
-	public Coupon findById(int couponId) {
+	public Coupon findCouponById(int couponId) {
 		return couponRepository.findById(couponId);
 	}
 
@@ -52,27 +52,27 @@ public class CouponDbdao {
 	}
 
 //////////////////////////////////////////////////////////////////////////////////////////////////
-	public boolean existsByCompanyIdAndTitle(int companyId, String title) {
+	public boolean couponExistsByCompanyIdAndTitle(int companyId, String title) {
 		return couponRepository.existsByCompanyIdAndTitle(companyId, title);
 	}
 
-	public Coupon findByCompanyIdAndTitle(int companyId, String title) {
+	public Coupon findCouponByCompanyIdAndTitle(int companyId, String title) {
 		return couponRepository.findByCompanyIdAndTitle(companyId, title);
 	}
 
-	public boolean existsByTitleAndIdNot(String title, int id) {
+	public boolean couponExistsByTitleAndIdNot(String title, int id) {
 		return couponRepository.existsByTitleAndIdNot(title, id);
 	}
 
-	public List<Coupon> findByCompanyId(int companyId) {
+	public List<Coupon> findCouponsByCompanyId(int companyId) {
 		return couponRepository.findByCompanyId(companyId);
 	}
 
-	public List<Coupon> findByCompanyIdAndCategory(int companyId, CouponCategory category) {
+	public List<Coupon> findCouponsByCompanyIdAndCategory(int companyId, CouponCategory category) {
 		return couponRepository.findByCompanyIdAndCategory(companyId, category);
 	}
 
-	public List<Coupon> findByCompanyIdAndPriceLessThan(int companyId, double price) {
+	public List<Coupon> findCouponsByCompanyIdAndPriceLessThan(int companyId, double price) {
 		return couponRepository.findByCompanyIdAndPriceLessThan(companyId, price);
 	}
 

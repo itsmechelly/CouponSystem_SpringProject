@@ -51,7 +51,7 @@ public class CompanyService extends ClientService {
 
 	public Coupon addCoupon(Coupon coupon) throws AlreadyExistException, LogException {
 
-		if (couponDbdao.existsByCompanyIdAndTitle(this.companyId, coupon.getTitle()))
+		if (couponDbdao.couponExistsByCompanyIdAndTitle(this.companyId, coupon.getTitle()))
 			throw new AlreadyExistException("Company title ", coupon.getTitle());
 		
 		coupon.setCompanyId(companyId);
@@ -62,14 +62,14 @@ public class CompanyService extends ClientService {
 	public Coupon updateCoupon(Coupon coupon)
 			throws LogException, NotFoundException, NotAllowedException, AlreadyExistException {
 
-		Optional<Coupon> coupFromDb1 = Optional.of(couponDbdao.findByCompanyIdAndTitle(this.companyId, coupon.getTitle()));
-		Optional<Coupon> coupFromDb2 = Optional.of(couponDbdao.findById(coupon.getId()));
+		Optional<Coupon> coupFromDb1 = Optional.of(couponDbdao.findCouponByCompanyIdAndTitle(this.companyId, coupon.getTitle()));
+		Optional<Coupon> coupFromDb2 = Optional.of(couponDbdao.findCouponById(coupon.getId()));
 
 		if (coupon.getId() != coupFromDb1.get().getId())
 			throw new NotAllowedException("coupon id number", coupon.getId());
 		if (coupon.getCompanyId() != coupFromDb2.get().getCompanyId())
 			throw new NotAllowedException("company id number", this.companyId);
-		if (couponDbdao.existsByTitleAndIdNot(coupon.getTitle(), coupon.getId()))
+		if (couponDbdao.couponExistsByTitleAndIdNot(coupon.getTitle(), coupon.getId()))
 			throw new AlreadyExistException("Company title ", coupon.getTitle());
 		
 		couponDbdao.updateCoupon(coupon);
@@ -78,7 +78,7 @@ public class CompanyService extends ClientService {
 
 	public String deleteCoupon(int couponId) throws NotFoundException, LogException {
 
-		if (!couponDbdao.existsById(couponId))
+		if (!couponDbdao.couponExistsById(couponId))
 			throw new NotFoundException("coupons details.");
 		
 		couponDbdao.deleteCoupon(couponId);
@@ -87,7 +87,7 @@ public class CompanyService extends ClientService {
 
 	public List<Coupon> getAllCoupons() throws LogException, NotFoundException {
 
-		List<Coupon> coupFromDb = couponDbdao.findByCompanyId(this.companyId);
+		List<Coupon> coupFromDb = couponDbdao.findCouponsByCompanyId(this.companyId);
 
 		if (coupFromDb.isEmpty())
 			throw new NotFoundException("coupons details.");
@@ -97,7 +97,7 @@ public class CompanyService extends ClientService {
 
 	public List<Coupon> getAllCouponsByCategory(CouponCategory couponCategory) throws NotFoundException, LogException {
 
-		List<Coupon> coupFromDb = couponDbdao.findByCompanyIdAndCategory(this.companyId, couponCategory);
+		List<Coupon> coupFromDb = couponDbdao.findCouponsByCompanyIdAndCategory(this.companyId, couponCategory);
 
 		if (coupFromDb.isEmpty())
 			throw new NotFoundException("coupons from category type " + couponCategory + ".");
@@ -107,7 +107,7 @@ public class CompanyService extends ClientService {
 
 	public List<Coupon> getAllCouponsUnderMaxPrice(double maxPrice) throws LogException, NotFoundException {
 
-		List<Coupon> coupFromDb = couponDbdao.findByCompanyIdAndPriceLessThan(this.companyId, maxPrice);
+		List<Coupon> coupFromDb = couponDbdao.findCouponsByCompanyIdAndPriceLessThan(this.companyId, maxPrice);
 
 		if (coupFromDb.isEmpty())
 			throw new NotFoundException("coupons under price ", maxPrice);

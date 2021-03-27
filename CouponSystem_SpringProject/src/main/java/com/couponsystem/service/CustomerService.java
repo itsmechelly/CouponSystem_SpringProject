@@ -51,7 +51,7 @@ public class CustomerService extends ClientService {
 	public Coupon purchaseCoupon(Coupon coupon) throws PurchaseCouponException, LogException, NotFoundException {
 
 			
-		Coupon coupFromDb = couponDbdao.findById(coupon.getId());
+		Coupon coupFromDb = couponDbdao.findCouponById(coupon.getId());
 		Customer custFromDb = customerDbdao.findCustomerById(customerId);
 		List<Coupon> coupListFromDb = couponDbdao.getCouponsByCustomersId(customerId);
 		
