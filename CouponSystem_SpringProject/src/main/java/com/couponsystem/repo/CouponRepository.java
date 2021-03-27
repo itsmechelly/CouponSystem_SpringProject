@@ -11,8 +11,8 @@ import com.couponsystem.enums.CouponCategory;
 public interface CouponRepository extends JpaRepository<Coupon, Integer> {
 
 	Coupon findById (int id);
-	Coupon findByTitle(String title);
-	List<Coupon> findByEndDateBefore(Date date);
+//	Coupon findByTitle(String title);
+//	List<Coupon> findByEndDateBefore(Date date);
 //////////////////////////////////////////////////////////////////////////////////////////
 	boolean existsByCompanyIdAndTitle(int companyId, String title);
 	Coupon findByCompanyIdAndTitle(int companyId, String title);
