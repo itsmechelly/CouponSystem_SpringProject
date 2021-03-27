@@ -5,16 +5,20 @@ import java.util.List;
 import org.springframework.stereotype.Repository;
 
 import com.couponsystem.beans.Company;
+import com.couponsystem.beans.Customer;
 import com.couponsystem.repo.CompanyRepository;
+import com.couponsystem.repo.CustomerRepository;
 
 @Repository
 public class AdminImpl {
 
 	private final CompanyRepository companyRepository;
-	
-	public AdminImpl(CompanyRepository companyRepository) {
+	private final CustomerRepository customerRepository;
+
+	public AdminImpl(CompanyRepository companyRepository, CustomerRepository customerRepository) {
 		super();
 		this.companyRepository = companyRepository;
+		this.customerRepository = customerRepository;
 	}
 	
 //	------------------------------------------------------------------------------------------------------------
@@ -27,29 +31,54 @@ public class AdminImpl {
 		return companyRepository.saveAndFlush(company);
 	}
 	
-	public void deleteCompany(int companyId) {
-		companyRepository.deleteById(companyId);
+	public void deleteCompany(int id) {
+		companyRepository.deleteById(id);
 	}
 	
-	public Company findCompanyById(int companyId) {
-		return companyRepository.findCompanyById(companyId);
+	public Company findCompanyById(int id) {
+		return companyRepository.findCompanyById(id);
 	}
 	
 	public List<Company> findAllCompanies() {
 		return companyRepository.findAll();
 	}
 	
-	public boolean existsById(int id) {
+	public boolean companyExistsById(int id) {
 		return companyRepository.existsById(id);
 	}
 	
-	public boolean existsByEmail(String email) {
+	public boolean companyExistsByEmail(String email) {
 		return companyRepository.existsByEmail(email);
 	}
 	
-	public boolean existsByNameIgnoreCase(String name) {
+	public boolean companyExistsByNameIgnoreCase(String name) {
 		return companyRepository.existsByNameIgnoreCase(name);
 	}
 	
+//	------------------------------------------------------------------------------------------------------------
+
+	public Customer addCustomer(Customer customer) {
+		return customerRepository.save(customer);
+	}
 	
+	public Customer updateCustomer(Customer customer) {
+		return customerRepository.saveAndFlush(customer);
+	}
+	
+	public void deleteCustomer(int id) {
+		customerRepository.deleteById(id);
+	}
+	
+	public Customer findCustomerById(int id) {
+		return customerRepository.findCustomerById(id);
+	}
+	
+	public List<Customer> findAllCustomers() {
+		return customerRepository.findAll();
+	}
+	
+	public boolean customerExistsByEmail(String email) {
+		return customerRepository.existsByEmail(email);
+	}
+
 }

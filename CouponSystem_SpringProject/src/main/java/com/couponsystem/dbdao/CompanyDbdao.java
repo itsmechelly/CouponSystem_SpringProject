@@ -62,15 +62,15 @@ public class CompanyDbdao {
 		return companyRepository.findAll();
 	}
 
-	public boolean existsByEmail(String email) {
+	public boolean companyExistsByEmail(String email) {
 		return companyRepository.existsByEmail(email);
 	}
 	
-	public boolean existsByNameIgnoreCase(String name) {
+	public boolean companyExistsByNameIgnoreCase(String name) {
 		return companyRepository.existsByNameIgnoreCase(name);
 	}
 	
-	public boolean existsById(int id) {
+	public boolean companyExistsById(int id) {
 		return companyRepository.existsById(id);
 	}
 	
