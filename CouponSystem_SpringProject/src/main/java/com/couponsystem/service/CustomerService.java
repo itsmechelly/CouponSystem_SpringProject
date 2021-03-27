@@ -4,7 +4,6 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 
@@ -41,7 +40,6 @@ public class CustomerService extends ClientService{
 		return false;
 	}
 
-//	@Autowired
 	public int findCustomerIdByEmailAndPassword(String email, String password) {
 		Customer cForCustomerId = customerImpl.findCustomerByEmailAndPassword(email, password);
 		return cForCustomerId.getId();

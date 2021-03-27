@@ -3,7 +3,6 @@ package com.couponsystem.service;
 import java.util.List;
 import java.util.Optional;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 
@@ -26,7 +25,6 @@ public class CompanyService extends ClientService {
 	public int companyId;
 	private CompanyImpl companyImpl;
 
-//	@Autowired
 	public CompanyService(CompanyImpl companyImpl) {
 		super();
 		this.companyImpl = companyImpl;
