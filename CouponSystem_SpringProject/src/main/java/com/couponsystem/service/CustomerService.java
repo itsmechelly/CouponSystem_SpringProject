@@ -55,7 +55,7 @@ public class CustomerService extends ClientService {
 		Customer custFromDb = customerDbdao.findCustomerById(customerId);
 		List<Coupon> coupListFromDb = couponDbdao.getCouponsByCustomersId(customerId);
 		
-		if (couponDbdao.existsByCustomersIdAndTitle(customerId, coupon.getTitle())) 
+		if (couponDbdao.couponExistsByCustomersIdAndTitle(customerId, coupon.getTitle())) 
 			throw new PurchaseCouponException("Purchasing this type of coupon is limited to one use only. you are welcome to choose another coupon.");
 		if (coupFromDb.getAmount() < 1)
 			throw new PurchaseCouponException("Coupon out of stock, you are welcome to choose another coupon.");

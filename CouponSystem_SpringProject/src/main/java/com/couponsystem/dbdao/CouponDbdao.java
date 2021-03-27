@@ -90,7 +90,7 @@ public class CouponDbdao {
 		return couponRepository.getCouponsByCustomersIdAndPriceLessThan(id, price);
 	}
 
-	public boolean existsByCustomersIdAndTitle(int id, String title) {
+	public boolean couponExistsByCustomersIdAndTitle(int id, String title) {
 		return couponRepository.existsByCustomersIdAndTitle(id, title);
 	}
 }
