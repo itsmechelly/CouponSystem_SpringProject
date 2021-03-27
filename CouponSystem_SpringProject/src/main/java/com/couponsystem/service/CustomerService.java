@@ -50,10 +50,10 @@ public class CustomerService extends ClientService{
 
 			
 		Coupon coupFromDb = customerImpl.findCouponById(coupon.getId());
-		Customer custFromDb = customerImpl.findCustomerById(customerId);
-		List<Coupon> coupListFromDb = customerImpl.getCouponsByCustomersId(customerId);
+		Customer custFromDb = customerImpl.findCustomerById(this.customerId);
+		List<Coupon> coupListFromDb = customerImpl.getCouponsByCustomersId(this.customerId);
 		
-		if (customerImpl.couponExistsByCustomersIdAndTitle(customerId, coupon.getTitle())) 
+		if (customerImpl.couponExistsByCustomersIdAndTitle(this.customerId, coupon.getTitle())) 
 			throw new PurchaseCouponException("Purchasing this type of coupon is limited to one use only. you are welcome to choose another coupon.");
 		if (coupFromDb.getAmount() < 1)
 			throw new PurchaseCouponException("Coupon out of stock, you are welcome to choose another coupon.");
@@ -70,7 +70,7 @@ public class CustomerService extends ClientService{
 
 	public List<Coupon> getAllCoupons() throws NotFoundException, LogException {
 
-		List<Coupon> customerFromDb = customerImpl.getCouponsByCustomersId(customerId);
+		List<Coupon> customerFromDb = customerImpl.getCouponsByCustomersId(this.customerId);
 
 		if (customerFromDb.isEmpty())
 			throw new NotFoundException("coupons details.");
@@ -80,7 +80,7 @@ public class CustomerService extends ClientService{
 
 	public List<Coupon> getAllCouponsByCategory(CouponCategory category) throws NotFoundException, LogException {
 
-		List<Coupon> coupFromDb = customerImpl.getCouponsByCustomersIdAndCategory(customerId, category);
+		List<Coupon> coupFromDb = customerImpl.getCouponsByCustomersIdAndCategory(this.customerId, category);
 
 		if (coupFromDb.isEmpty())
 			throw new NotFoundException("coupons from category type " + category + ".");
@@ -90,7 +90,7 @@ public class CustomerService extends ClientService{
 
 	public List<Coupon> getAllCouponsUnderMaxPrice(double maxPrice) throws LogException, NotFoundException {
 
-		List<Coupon> coupFromDb = customerImpl.getCouponsByCustomersIdAndPriceLessThan(customerId, maxPrice);
+		List<Coupon> coupFromDb = customerImpl.getCouponsByCustomersIdAndPriceLessThan(this.customerId, maxPrice);
 
 		if (coupFromDb.isEmpty())
 			throw new NotFoundException("coupons under price ", maxPrice);
@@ -100,12 +100,12 @@ public class CustomerService extends ClientService{
 
 	public Customer getCustomerDetails() throws NotFoundException, LogException {
 
-		Optional<Customer> customerFromDb = Optional.of(customerImpl.findCustomerById(customerId));
+		Optional<Customer> customerFromDb = Optional.of(customerImpl.findCustomerById(this.customerId));
 
 		if (customerFromDb.isEmpty())
 			throw new NotFoundException("customer details.");
 		
-		return customerImpl.findCustomerById(customerId);
+		return customerImpl.findCustomerById(this.customerId);
 	}
 
 }

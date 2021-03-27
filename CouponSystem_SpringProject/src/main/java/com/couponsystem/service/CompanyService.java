@@ -52,7 +52,7 @@ public class CompanyService extends ClientService {
 		if (companyImpl.couponExistsByCompanyIdAndTitle(this.companyId, coupon.getTitle()))
 			throw new AlreadyExistException("Company title ", coupon.getTitle());
 		
-		coupon.setCompanyId(companyId);
+		coupon.setCompanyId(this.companyId);
 		companyImpl.addCoupon(coupon);
 		return coupon;
 	}
@@ -74,13 +74,13 @@ public class CompanyService extends ClientService {
 		return coupon;
 	}
 
-	public String deleteCoupon(int couponId) throws NotFoundException, LogException {
+	public String deleteCoupon(int id) throws NotFoundException, LogException {
 
-		if (!companyImpl.couponExistsById(couponId))
+		if (!companyImpl.couponExistsById(id))
 			throw new NotFoundException("coupons details.");
 		
-		companyImpl.deleteCoupon(couponId);
-		return "Coupon with id number " + couponId + " deleted successfully.";
+		companyImpl.deleteCoupon(id);
+		return "Coupon with id number " + id + " deleted successfully.";
 	}
 
 	public List<Coupon> getAllCoupons() throws LogException, NotFoundException {
@@ -93,12 +93,12 @@ public class CompanyService extends ClientService {
 		return coupFromDb;
 	}
 
-	public List<Coupon> getAllCouponsByCategory(CouponCategory couponCategory) throws NotFoundException, LogException {
+	public List<Coupon> getAllCouponsByCategory(CouponCategory category) throws NotFoundException, LogException {
 
-		List<Coupon> coupFromDb = companyImpl.findCouponsByCompanyIdAndCategory(this.companyId, couponCategory);
+		List<Coupon> coupFromDb = companyImpl.findCouponsByCompanyIdAndCategory(this.companyId, category);
 
 		if (coupFromDb.isEmpty())
-			throw new NotFoundException("coupons from category type " + couponCategory + ".");
+			throw new NotFoundException("coupons from category type " + category + ".");
 		
 		return coupFromDb;
 	}
@@ -120,7 +120,7 @@ public class CompanyService extends ClientService {
 		if (companyFromDb.isEmpty())
 			throw new NotFoundException("company details.");
 		
-		return companyImpl.findCompanyById(companyId);
+		return companyImpl.findCompanyById(this.companyId);
 	}
 
 }
