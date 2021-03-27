@@ -8,20 +8,21 @@ import org.springframework.stereotype.Service;
 
 import com.couponsystem.beans.Company;
 import com.couponsystem.beans.Customer;
-import com.couponsystem.dbdao.CompanyDbdao;
-import com.couponsystem.dbdao.CouponDbdao;
-import com.couponsystem.dbdao.CustomerDbdao;
 import com.couponsystem.exceptions.AlreadyExistException;
 import com.couponsystem.exceptions.LogException;
 import com.couponsystem.exceptions.NotAllowedException;
 import com.couponsystem.exceptions.NotFoundException;
+import com.couponsystem.impl.AdminImpl;
 
 @Service
 public class AdminService extends ClientService {
 
+	private AdminImpl adminImpl;
+	
 	@Autowired
-	public AdminService(CompanyDbdao companyDbdao, CustomerDbdao customerDbdao, CouponDbdao couponDbdao) {
-		super(companyDbdao, customerDbdao, couponDbdao);
+	public AdminService(AdminImpl adminImpl) {
+		super();
+		this.adminImpl = adminImpl;
 	}
 
 //	------------------------------------------------------------------------------------------------------------
@@ -38,96 +39,96 @@ public class AdminService extends ClientService {
 
 	public Company addCompany(Company company) throws AlreadyExistException, LogException {
 
-		if (companyDbdao.companyExistsByEmail(company.getEmail()))
+		if (adminImpl.companyExistsByEmail(company.getEmail()))
 			throw new AlreadyExistException("Company email ", company.getEmail());
-		if (companyDbdao.companyExistsByNameIgnoreCase(company.getName()))
+		if (adminImpl.companyExistsByNameIgnoreCase(company.getName()))
 			throw new AlreadyExistException("Company name ", company.getName());
 
-		return companyDbdao.addCompany(company);
+		return adminImpl.addCompany(company);
 	}
 
 	public Company updateCompany(Company company) throws NotFoundException, NotAllowedException, LogException {
 
-		Company compFromDb = companyDbdao.findCompanyById(company.getId());
+		Company compFromDb = adminImpl.findCompanyById(company.getId());
 
 		if (compFromDb == null)
 			throw new NotFoundException("company details.");
 		if (!company.getName().equalsIgnoreCase(compFromDb.getName()))
 			throw new NotAllowedException("company name to", company.getName());
 
-		return companyDbdao.updateCompany(company);
+		return adminImpl.updateCompany(company);
 	}
 
 	public String deleteCompany(int companyId) throws NotFoundException, LogException {
 
-		if (!companyDbdao.companyExistsById(companyId))
+		if (!adminImpl.companyExistsById(companyId))
 			throw new NotFoundException("company details.");
 
-		companyDbdao.deleteCompany(companyId);
+		adminImpl.deleteCompany(companyId);
 		return "Request accomplished, company with id number " + companyId + " has been deleted from the system.";
 	}
 
 	public Company getOneCompanyById(int companyId) throws NotFoundException, LogException {
 
-		if (!companyDbdao.companyExistsById(companyId))
+		if (!adminImpl.companyExistsById(companyId))
 			throw new NotFoundException("company details.");
 
-		return companyDbdao.findCompanyById(companyId);
+		return adminImpl.findCompanyById(companyId);
 	}
 
 	public List<Company> getAllCompanies() throws NotFoundException, LogException {
 
-		Optional<List<Company>> compFromDb = Optional.of(companyDbdao.findAllCompanies());
+		Optional<List<Company>> compFromDb = Optional.of(adminImpl.findAllCompanies());
 
 		if (compFromDb.isEmpty())
 			throw new NotFoundException("companies details.");
 
-		return companyDbdao.findAllCompanies();
+		return adminImpl.findAllCompanies();
 	}
 
 	public Customer addCustomer(Customer customer) throws AlreadyExistException, LogException {
 
-		if (customerDbdao.customerExistsByEmail(customer.getEmail()))
+		if (adminImpl.customerExistsByEmail(customer.getEmail()))
 			throw new AlreadyExistException("Customer email ", customer.getEmail());
 
-		return customerDbdao.addCustomer(customer);
+		return adminImpl.addCustomer(customer);
 	}
 
 	public Customer updateCustomer(Customer customer) throws NotFoundException, LogException {
 
-		Customer custFromDb = customerDbdao.findCustomerById(customer.getId());
+		Customer custFromDb = adminImpl.findCustomerById(customer.getId());
 
 		if (custFromDb == null)
 			throw new NotFoundException("customer details.");
 
-		return customerDbdao.updateCustomer(customer);
+		return adminImpl.updateCustomer(customer);
 	}
 
 	public String deleteCustomer(int customerId) throws NotFoundException, LogException {
 
-		if (!customerDbdao.existsById(customerId))
+		if (!adminImpl.customerExistsById(customerId))
 			throw new NotFoundException("customer details.");
 
-		customerDbdao.deleteCustomer(customerId);
+		adminImpl.deleteCustomer(customerId);
 		return "Request accomplished, customer with id number " + customerId + " has been deleted from the system.";
 	}
 
 	public Customer getOneCustomerById(int customerId) throws NotFoundException, LogException {
 
-		if (!customerDbdao.existsById(customerId))
+		if (!adminImpl.customerExistsById(customerId))
 			throw new NotFoundException("customer details.");
 
-		return customerDbdao.findCustomerById(customerId);
+		return adminImpl.findCustomerById(customerId);
 	}
 
 	public List<Customer> getAllCustomers() throws NotFoundException, LogException {
 
-		Optional<List<Customer>> custListFromDb = Optional.of(customerDbdao.findAllCustomers());
+		Optional<List<Customer>> custListFromDb = Optional.of(adminImpl.findAllCustomers());
 
 		if (custListFromDb.isEmpty())
 			throw new NotFoundException("customers details.");
 
-		return customerDbdao.findAllCustomers();
+		return adminImpl.findAllCustomers();
 	}
 
 }

@@ -2,6 +2,7 @@ package com.couponsystem.impl;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.couponsystem.beans.Company;
@@ -16,6 +17,7 @@ public class CompanyImpl {
 	private final CompanyRepository companyRepository;
 	private final CouponRepository couponRepository;
 
+	@Autowired
 	public CompanyImpl(CompanyRepository companyRepository, CouponRepository couponRepository) {
 		super();
 		this.companyRepository = companyRepository;

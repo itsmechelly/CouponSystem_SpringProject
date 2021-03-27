@@ -2,6 +2,7 @@ package com.couponsystem.impl;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.couponsystem.beans.Company;
@@ -15,6 +16,7 @@ public class AdminImpl {
 	private final CompanyRepository companyRepository;
 	private final CustomerRepository customerRepository;
 
+	@Autowired
 	public AdminImpl(CompanyRepository companyRepository, CustomerRepository customerRepository) {
 		super();
 		this.companyRepository = companyRepository;
@@ -75,6 +77,10 @@ public class AdminImpl {
 	
 	public List<Customer> findAllCustomers() {
 		return customerRepository.findAll();
+	}
+	
+	public boolean customerExistsById(int id) {
+		return customerRepository.existsById(id);
 	}
 	
 	public boolean customerExistsByEmail(String email) {
