@@ -7,9 +7,14 @@ import org.springframework.stereotype.Component;
 
 import com.couponsystem.beans.Company;
 import com.couponsystem.beans.Customer;
+import com.couponsystem.exceptions.CouponSystemException;
+import com.couponsystem.facade.AdminFacade;
 import com.couponsystem.rest.AdminController;
+import com.couponsystem.security.ClientType;
+import com.couponsystem.security.LoginManager;
 import com.couponsystem.security.TokenManager;
 import com.couponsystem.utils.ClrUtils;
+import com.couponsystem.utils.TestUtils;
 
 @Component
 @Order(1)
@@ -40,6 +45,39 @@ public class AdminClr implements CommandLineRunner {
 //	   | | | | (_| | | | | | | | | | | | |\ \  __/\__ \ |_    | |  __/\__ \ |_\__ \
 //	   \_| |_/\__,_|_| |_| |_|_|_| |_| \_| \_\___||___/\__|   \_/\___||___/\__|___/
 
+		//TODO
+		/*
+		 * 		TestUtils.testSeparatedLine("Testing Admin Facade - login:");
+		AdminFacade adminUser = null;
+
+		try {
+			System.out.println("Going to test login exception - *WRONG* *Email* for adminFacade.login:");
+			adminUser = (AdminFacade) LoginManager.getInstance().login("BADadmin@BADadmin.com", "admin",
+					ClientType.ADMINISTRATOR);
+		} catch (CouponSystemException e) {
+			System.out.println(e.getMessage());
+		}
+
+		try {
+			System.out.println();
+			System.out.println("Going to test login exception - *WRONG* *Password* for adminFacade.login:");
+			adminUser = (AdminFacade) LoginManager.getInstance().login("admin@admin.com", "BADadmin",
+					ClientType.ADMINISTRATOR);
+		} catch (CouponSystemException e) {
+			System.out.println(e.getMessage());
+		}
+
+		try {
+			System.out.println();
+			System.out.println("Going to test GOOD adminFacade.login:");
+			adminUser = (AdminFacade) LoginManager.getInstance().login("admin@admin.com", "admin",
+					ClientType.ADMINISTRATOR);
+		} catch (CouponSystemException e) {
+			System.out.println(e.getMessage());
+		}
+		 */
+		//TODO
+		
 		ClrUtils.adminRestTests();
 
 		ClrUtils.testSeparatedLine(" --------->>>>>>>> Going to test GOOD adminController.adminLogin:");
