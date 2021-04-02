@@ -17,7 +17,6 @@ import com.couponsystem.utils.DateUtil;
 public class CompanyClr implements CommandLineRunner {
 
 	private TokenManager tokenManager;
-
 	private final CompanyController companyController;
 
 	@Autowired

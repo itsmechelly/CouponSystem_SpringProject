@@ -16,7 +16,6 @@ import com.couponsystem.utils.ClrUtils;
 public class AdminClr implements CommandLineRunner {
 
 	private final TokenManager tokenManager;
-
 	private final AdminController adminController;
 
 	@Autowired

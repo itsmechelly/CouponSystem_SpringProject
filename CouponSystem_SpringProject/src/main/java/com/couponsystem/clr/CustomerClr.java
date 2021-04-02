@@ -16,9 +16,7 @@ import com.couponsystem.utils.ClrUtils;
 public class CustomerClr implements CommandLineRunner {
 
 	private TokenManager tokenManager;
-
 	private final CustomerController customerController;
-
 	private final CouponRepository couponRepository;
 
 	@Autowired
