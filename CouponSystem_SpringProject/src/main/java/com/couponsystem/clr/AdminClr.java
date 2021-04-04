@@ -7,6 +7,7 @@ import org.springframework.stereotype.Component;
 
 import com.couponsystem.beans.Company;
 import com.couponsystem.beans.Customer;
+import com.couponsystem.exceptions.CouponSystemException;
 import com.couponsystem.rest.AdminController;
 import com.couponsystem.security.TokenManager;
 import com.couponsystem.utils.ClrUtils;
@@ -41,18 +42,39 @@ public class AdminClr implements CommandLineRunner {
 
 		ClrUtils.adminRestTests();
 
-		ClrUtils.testSeparatedLine(" --------->>>>>>>> Going to test GOOD adminController.adminLogin:");
-		System.out.println(adminController.ClientLogin("admin@admin.com", "admin"));
 
-//		ClrUtils.testSeparatedLine(" --------->>>>>>>> Going to test *BAD email* for adminController.adminLogin:");
-//		System.out.println(adminController.ClientLogin("nimda@admin.com", "admin"));
+//		------------------------------------------------------------------------------------------------------------
+
+		ClrUtils.testSeparatedLine(" --------->>>>>>>> Testing Admin Login:");
+
+		try {
+			System.out.println("Going to test login exception - *WRONG* *Email* for adminFacade.login:");
+			System.out.println(adminController.ClientLogin("BADadmin@BADadmin.com", "admin"));
+		} catch (CouponSystemException e) {
+			System.out.println(e.getMessage());
+		}
+
+		try {
+			System.out.println();
+			System.out.println("Going to test login exception - *WRONG* *Password* for adminFacade.login:");
+			System.out.println(adminController.ClientLogin("admin@admin.com", "nimda"));
+		} catch (CouponSystemException e) {
+			System.out.println(e.getMessage());
+		}
+
+		try {
+			System.out.println();
+			System.out.println("Going to test GOOD adminFacade.login:");
+			System.out.println(adminController.ClientLogin("admin@admin.com", "admin"));
+		} catch (CouponSystemException e) {
+			System.out.println(e.getMessage());
+		}
 		
-//		ClrUtils.testSeparatedLine(" --------->>>>>>>> Going to test *BAD password* for adminController.adminLogin:");
-//		System.out.println(adminController.ClientLogin("admin@admin.com", "nimda"));
-		
+//		TODO -> Logout
 //		ClrUtils.testSeparatedLine(" --------->>>>>>>> Going to test adminController.adminLogout:");
-//		System.out.println("Don't forget to test *GOOD* logout request && *BAD REQUESTS* in POSTMAN / phase 3 of the project:");
 
+//		------------------------------------------------------------------------------------------------------------
+		
 		ClrUtils.testSeparatedLine(" --------->>>>>>>> Going to test adminController.addCompany:");
 
 		Company comp1 = new Company();
