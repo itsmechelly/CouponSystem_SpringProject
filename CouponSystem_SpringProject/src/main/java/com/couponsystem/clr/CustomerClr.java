@@ -6,7 +6,7 @@ import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
 import com.couponsystem.enums.CouponCategory;
-import com.couponsystem.repo.CouponRepository;
+import com.couponsystem.impl.CustomerImpl;
 import com.couponsystem.rest.CustomerController;
 import com.couponsystem.security.TokenManager;
 import com.couponsystem.utils.ClrUtils;
@@ -17,15 +17,15 @@ public class CustomerClr implements CommandLineRunner {
 
 	private TokenManager tokenManager;
 	private final CustomerController customerController;
-	private final CouponRepository couponRepository;
+	private final CustomerImpl customerImpl;
 
 	@Autowired
 	public CustomerClr(TokenManager tokenManager, CustomerController customerController,
-			CouponRepository couponRepository) {
+			CustomerImpl customerImpl) {
 		super();
 		this.tokenManager = tokenManager;
 		this.customerController = customerController;
-		this.couponRepository = couponRepository;
+		this.customerImpl = customerImpl;
 	}
 
 	@Override
@@ -66,29 +66,29 @@ public class CustomerClr implements CommandLineRunner {
 		ClrUtils.testSeparatedLine(" --------->>>>>>>> Going to test customerController.purchaseCoupon:");
 
 		System.out
-		.println(customerController.purchaseCoupon(couponRepository.findById(2), tokenManager.tokenForClrTest()));		
+		.println(customerController.purchaseCoupon(customerImpl.findCouponById(2), tokenManager.tokenForClrTest()));		
 		System.out
-				.println(customerController.purchaseCoupon(couponRepository.findById(4), tokenManager.tokenForClrTest()));
+				.println(customerController.purchaseCoupon(customerImpl.findCouponById(4), tokenManager.tokenForClrTest()));
 		System.out
-				.println(customerController.purchaseCoupon(couponRepository.findById(6), tokenManager.tokenForClrTest()));
+				.println(customerController.purchaseCoupon(customerImpl.findCouponById(6), tokenManager.tokenForClrTest()));
 
 		ClrUtils.testSeparatedLine(
 				" --------->>>>>>>> Going to test *BAD REQUEST* for customerController.purchaseCoupon: (customer can't purchase the same coupon more then once)");
 
 		System.out
-				.println(customerController.purchaseCoupon(couponRepository.getOne(2), tokenManager.tokenForClrTest()));
+				.println(customerController.purchaseCoupon(customerImpl.findCouponById(2), tokenManager.tokenForClrTest()));
 
 		ClrUtils.testSeparatedLine(
 				" --------->>>>>>>> Going to test *BAD REQUEST* for customerController.purchaseCoupon: (customer can't purchase the coupon if amount<0)");
 
 		System.out
-				.println(customerController.purchaseCoupon(couponRepository.getOne(1), tokenManager.tokenForClrTest()));
+				.println(customerController.purchaseCoupon(customerImpl.findCouponById(1), tokenManager.tokenForClrTest()));
 
 		ClrUtils.testSeparatedLine(
 				" --------->>>>>>>> Going to test *BAD REQUEST* for customerController.purchaseCoupon: (customer can't purchase the coupon if the coupon has expired)");
 
 		System.out
-				.println(customerController.purchaseCoupon(couponRepository.getOne(7), tokenManager.tokenForClrTest()));
+				.println(customerController.purchaseCoupon(customerImpl.findCouponById(7), tokenManager.tokenForClrTest()));
 
 		ClrUtils.testSeparatedLine(" --------->>>>>>>> Going to test customerController.getAllCustomerCoupons:");
 
@@ -118,5 +118,5 @@ public class CustomerClr implements CommandLineRunner {
 
 		System.out.println(customerController.getCustomerDetails(tokenManager.tokenForClrTest()));
 	}
-	
+
 }

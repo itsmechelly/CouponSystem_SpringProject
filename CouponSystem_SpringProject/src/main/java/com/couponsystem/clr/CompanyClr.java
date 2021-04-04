@@ -224,5 +224,5 @@ public class CompanyClr implements CommandLineRunner {
 
 		System.out.println(companyController.getCompanyDetails(tokenManager.tokenForClrTest()));
 	}
-	
+
 }
