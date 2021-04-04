@@ -43,17 +43,25 @@ public class CustomerClr implements CommandLineRunner {
 
 		ClrUtils.customerRestTests();
 
-		ClrUtils.testSeparatedLine(" --------->>>>>>>> Going to test GOOD customer login:");
+//		------------------------------------------------------------------------------------------------------------
+
+		ClrUtils.testSeparatedLine(" --------->>>>>>>> Testing Company Login:");
+
+		System.out.println("Going to test login exception - *WRONG* *Email*:");
+		System.out.println(customerController.ClientLogin("BADcust@cust.com", "1111"));
+
+		System.out.println();
+		System.out.println("Going to test login exception - *WRONG* *Password*:");
+		System.out.println(customerController.ClientLogin("cust1@cust.com", "1010"));
+
+		System.out.println();
+		System.out.println("Going to test GOOD customer login:");
 		System.out.println(customerController.ClientLogin("cust1@cust.com", "1111"));
 
-//		ClrUtils.testSeparatedLine(" --------->>>>>>>> Going to test *BAD email* for customer login:");
-//		System.out.println(customerController.ClientLogin("cust@cust.com", "1111"));
-		
-//		ClrUtils.testSeparatedLine(" --------->>>>>>>> Going to test *BAD password* for customer login:");
-//		System.out.println(customerController.ClientLogin("cust1@cust.com", "cccc"));
-		
-//		ClrUtils.testSeparatedLine(" --------->>>>>>>> Going to test customer logout:");
-//		System.out.println("Don't forget to test logout request && *BAD REQUESTS* in POSTMAN / phase 3 of the project.");
+//		TODO -> Logout
+//		ClrUtils.testSeparatedLine(" --------->>>>>>>> Going to test Customer Logout:");
+
+//		------------------------------------------------------------------------------------------------------------
 
 		ClrUtils.testSeparatedLine(" --------->>>>>>>> Going to test customerController.purchaseCoupon:");
 
