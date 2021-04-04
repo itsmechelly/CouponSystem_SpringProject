@@ -109,7 +109,7 @@ public class AdminClr implements CommandLineRunner {
 		System.out.println(adminController.addCompany(comp5, tokenManager.tokenForClrTest()));
 
 		ClrUtils.testSeparatedLine(
-				" --------->>>>>>>> Going to test adminController.addCompany *BAD REQUEST*(cannot add if companyEmail already exist):");
+				" --------->>>>>>>> Going to test adminController.addCompany *BAD REQUEST* (cannot add if companyEmail already exist):");
 
 		Company comp55 = new Company();
 		comp55.setName("compName55");
@@ -119,7 +119,7 @@ public class AdminClr implements CommandLineRunner {
 		System.out.println(adminController.addCompany(comp55, tokenManager.tokenForClrTest()));
 
 		ClrUtils.testSeparatedLine(
-				" --------->>>>>>>> Going to test adminController.addCompany *BAD REQUEST*(cannot add companyName if exist):");
+				" --------->>>>>>>> Going to test adminController.addCompany *BAD REQUEST* (cannot add companyName if exist):");
 
 		Company comp44 = new Company();
 		comp44.setName("compName4");
