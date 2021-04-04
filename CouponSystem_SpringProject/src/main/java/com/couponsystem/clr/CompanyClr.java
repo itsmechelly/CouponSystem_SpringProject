@@ -42,17 +42,25 @@ public class CompanyClr implements CommandLineRunner {
 //	                         |_|                |___/                                              
 		ClrUtils.companyRestTests();
 
-		ClrUtils.testSeparatedLine(" --------->>>>>>>> Going to test GOOD company login:");
+//		------------------------------------------------------------------------------------------------------------
+
+		ClrUtils.testSeparatedLine(" --------->>>>>>>> Testing Company Login:");
+
+		System.out.println("Going to test login exception - *WRONG* *Email*:");
+		System.out.println(companyController.ClientLogin("BADcomp@comp.com", "1111"));
+
+		System.out.println();
+		System.out.println("Going to test login exception - *WRONG* *Password*:");
+		System.out.println(companyController.ClientLogin("comp1Email@comp.com", "1010"));
+
+		System.out.println();
+		System.out.println("Going to test GOOD company login:");
 		System.out.println(companyController.ClientLogin("comp1Email@comp.com", "1111"));
 
-//		ClrUtils.testSeparatedLine(" --------->>>>>>>> Going to test *BAD email* for company login:");
-//		System.out.println(companyController.ClientLogin("compEmail@comp.com", "1111"));
-		
-//		ClrUtils.testSeparatedLine(" --------->>>>>>>> Going to test *BAD password* for company login:");
-//		System.out.println(companyController.ClientLogin("comp1Email@comp.com", "cccc"));
-		
-//		ClrUtils.testSeparatedLine(" --------->>>>>>>> Going to test company logout:");
-//		System.out.println("Don't forget to test logout request && *BAD REQUESTS* in POSTMAN / phase 3 of the project.");
+//		TODO -> Logout
+//		ClrUtils.testSeparatedLine(" --------->>>>>>>> Going to test Company Logout:");
+
+//		------------------------------------------------------------------------------------------------------------
 
 		ClrUtils.testSeparatedLine(
 				" --------->>>>>>>> Going to add 5 coupons using companyController.addCompanyCoupon:");
