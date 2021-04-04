@@ -7,7 +7,6 @@ import org.springframework.stereotype.Component;
 
 import com.couponsystem.beans.Company;
 import com.couponsystem.beans.Customer;
-import com.couponsystem.exceptions.CouponSystemException;
 import com.couponsystem.rest.AdminController;
 import com.couponsystem.security.TokenManager;
 import com.couponsystem.utils.ClrUtils;
@@ -47,29 +46,17 @@ public class AdminClr implements CommandLineRunner {
 
 		ClrUtils.testSeparatedLine(" --------->>>>>>>> Testing Admin Login:");
 
-		try {
 			System.out.println("Going to test login exception - *WRONG* *Email* for adminFacade.login:");
 			System.out.println(adminController.ClientLogin("BADadmin@BADadmin.com", "admin"));
-		} catch (CouponSystemException e) {
-			System.out.println(e.getMessage());
-		}
 
-		try {
 			System.out.println();
 			System.out.println("Going to test login exception - *WRONG* *Password* for adminFacade.login:");
 			System.out.println(adminController.ClientLogin("admin@admin.com", "nimda"));
-		} catch (CouponSystemException e) {
-			System.out.println(e.getMessage());
-		}
 
-		try {
 			System.out.println();
 			System.out.println("Going to test GOOD adminFacade.login:");
 			System.out.println(adminController.ClientLogin("admin@admin.com", "admin"));
-		} catch (CouponSystemException e) {
-			System.out.println(e.getMessage());
-		}
-		
+
 //		TODO -> Logout
 //		ClrUtils.testSeparatedLine(" --------->>>>>>>> Going to test adminController.adminLogout:");
 
@@ -106,7 +93,7 @@ public class AdminClr implements CommandLineRunner {
 		System.out.println(adminController.addCompany(comp2, tokenManager.tokenForClrTest()));
 		System.out.println(adminController.addCompany(comp3, tokenManager.tokenForClrTest()));
 		System.out.println(adminController.addCompany(comp4, tokenManager.tokenForClrTest()));
-		System.out.println(adminController.addCompany(comp5, tokenManager.tokenForClrTest()));
+		System.out.println(adminController.addCompany(comp5, tokenManager.tokenForClrTest()));			
 
 		ClrUtils.testSeparatedLine(
 				" --------->>>>>>>> Going to test adminController.addCompany *BAD REQUEST* (cannot add if companyEmail already exist):");
@@ -136,7 +123,7 @@ public class AdminClr implements CommandLineRunner {
 		System.out.println(adminController.updateCompany(comp3, tokenManager.tokenForClrTest()));
 
 		ClrUtils.testSeparatedLine(
-				" --------->>>>>>>> Going to test adminController.updateCompany* BAD REQUEST*(cannot update companyName):");
+				" --------->>>>>>>> Going to test adminController.updateCompany *BAD REQUEST*(cannot update companyName):");
 
 		comp3.setName("compName33");
 		System.out.println(adminController.updateCompany(comp3, tokenManager.tokenForClrTest()));
