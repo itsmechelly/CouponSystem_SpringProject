@@ -7,8 +7,11 @@ import org.springframework.stereotype.Component;
 
 import com.couponsystem.beans.Company;
 import com.couponsystem.beans.Customer;
+import com.couponsystem.beans.LoginForm;
+import com.couponsystem.enums.ClientType;
 import com.couponsystem.rest.AdminController;
 import com.couponsystem.security.TokenManager;
+import com.couponsystem.service.LoginService;
 import com.couponsystem.utils.ClrUtils;
 
 @Component
@@ -18,11 +21,14 @@ public class AdminClr implements CommandLineRunner {
 	private final TokenManager tokenManager;
 	private final AdminController adminController;
 
+	private LoginService loginService;
+	
 	@Autowired
-	public AdminClr(TokenManager tokenManager, AdminController adminController) {
+	public AdminClr(TokenManager tokenManager, AdminController adminController, LoginService loginService) {
 		super();
 		this.tokenManager = tokenManager;
 		this.adminController = adminController;
+		this.loginService = loginService;
 	}
 
 	@Override
@@ -41,6 +47,14 @@ public class AdminClr implements CommandLineRunner {
 
 		ClrUtils.adminRestTests();
 
+		LoginForm loginForm = new LoginForm();
+		loginForm.setEmail("admin@admin.com");
+		loginForm.setPasswoed("admin");
+		loginForm.setClientType(ClientType.ADMIN);
+		
+		String token = loginService.login(loginForm);
+		System.out.println(token);
+		
 //		------------------------------------------------------------------------------------------------------------
 
 		ClrUtils.testSeparatedLine(" --------->>>>>>>> Testing Admin Login:");
@@ -88,11 +102,11 @@ public class AdminClr implements CommandLineRunner {
 		comp5.setEmail("comp5Email@comp.com");
 		comp5.setPassword("5555");
 
-		System.out.println(adminController.addCompany(comp1, tokenManager.tokenForClrTest()));
-		System.out.println(adminController.addCompany(comp2, tokenManager.tokenForClrTest()));
-		System.out.println(adminController.addCompany(comp3, tokenManager.tokenForClrTest()));
-		System.out.println(adminController.addCompany(comp4, tokenManager.tokenForClrTest()));
-		System.out.println(adminController.addCompany(comp5, tokenManager.tokenForClrTest()));			
+		System.out.println(adminController.addCompany(comp1, token));
+		System.out.println(adminController.addCompany(comp2, token));
+		System.out.println(adminController.addCompany(comp3, token));
+		System.out.println(adminController.addCompany(comp4, token));
+		System.out.println(adminController.addCompany(comp5, token));			
 
 		ClrUtils.testSeparatedLine(
 				" --------->>>>>>>> Going to test adminController.addCompany *BAD REQUEST* (cannot add if companyEmail already exist):");
@@ -102,7 +116,7 @@ public class AdminClr implements CommandLineRunner {
 		comp55.setEmail("comp5Email@comp.com");
 		comp55.setPassword("55555555");
 
-		System.out.println(adminController.addCompany(comp55, tokenManager.tokenForClrTest()));
+		System.out.println(adminController.addCompany(comp55, token));
 
 		ClrUtils.testSeparatedLine(
 				" --------->>>>>>>> Going to test adminController.addCompany *BAD REQUEST* (cannot add companyName if exist):");
@@ -112,41 +126,41 @@ public class AdminClr implements CommandLineRunner {
 		comp44.setEmail("comp44Email@comp.com");
 		comp44.setPassword("44444444");
 
-		System.out.println(adminController.addCompany(comp44, tokenManager.tokenForClrTest()));
+		System.out.println(adminController.addCompany(comp44, token));
 
 		ClrUtils.testSeparatedLine(" --------->>>>>>>> Going to test adminController.updateCompany:");
 
 		comp3.setEmail("comp3Email@comp.com");
 		comp3.setPassword("3333");
 
-		System.out.println(adminController.updateCompany(comp3, tokenManager.tokenForClrTest()));
+		System.out.println(adminController.updateCompany(comp3, token));
 
 		ClrUtils.testSeparatedLine(
 				" --------->>>>>>>> Going to test adminController.updateCompany *BAD REQUEST*(cannot update companyName):");
 
 		comp3.setName("compName33");
-		System.out.println(adminController.updateCompany(comp3, tokenManager.tokenForClrTest()));
+		System.out.println(adminController.updateCompany(comp3, token));
 
 		ClrUtils.testSeparatedLine(" --------->>>>>>>> Going to test adminController.deleteCompany:");
 
-		System.out.println(adminController.deleteCompany(5, tokenManager.tokenForClrTest()));
+		System.out.println(adminController.deleteCompany(5, token));
 
 		ClrUtils.testSeparatedLine(" --------->>>>>>>> Going to test *bad request* for adminController.deleteCompany:");
 
-		System.out.println(adminController.deleteCompany(55, tokenManager.tokenForClrTest()));
+		System.out.println(adminController.deleteCompany(55, token));
 
 		ClrUtils.testSeparatedLine(" --------->>>>>>>> Going to test adminController.getOneCompanyById:");
 
-		System.out.println(adminController.getOneCompanyById(1, tokenManager.tokenForClrTest()));
+		System.out.println(adminController.getOneCompanyById(1, token));
 
 		ClrUtils.testSeparatedLine(
 				" --------->>>>>>>> Going to test *BAD REQUEST* for adminController.getOneCompanyById: (company not exist)");
 
-		System.out.println(adminController.getOneCompanyById(8, tokenManager.tokenForClrTest()));
+		System.out.println(adminController.getOneCompanyById(8, token));
 
 		ClrUtils.testSeparatedLine(" --------->>>>>>>> Going to test adminController.getAllCompanies:");
 
-		System.out.println(adminController.getAllCompanies(tokenManager.tokenForClrTest()));
+		System.out.println(adminController.getAllCompanies(token));
 
 		ClrUtils.testSeparatedLine(" --------->>>>>>>> Going to test adminController.addCustomer:");
 
@@ -180,11 +194,11 @@ public class AdminClr implements CommandLineRunner {
 		cust5.setEmail("cust5@cust.com");
 		cust5.setPassword("5555");
 
-		System.out.println(adminController.addCustomer(cust1, tokenManager.tokenForClrTest()));
-		System.out.println(adminController.addCustomer(cust2, tokenManager.tokenForClrTest()));
-		System.out.println(adminController.addCustomer(cust3, tokenManager.tokenForClrTest()));
-		System.out.println(adminController.addCustomer(cust4, tokenManager.tokenForClrTest()));
-		System.out.println(adminController.addCustomer(cust5, tokenManager.tokenForClrTest()));
+		System.out.println(adminController.addCustomer(cust1, token));
+		System.out.println(adminController.addCustomer(cust2, token));
+		System.out.println(adminController.addCustomer(cust3, token));
+		System.out.println(adminController.addCustomer(cust4, token));
+		System.out.println(adminController.addCustomer(cust5, token));
 
 		ClrUtils.testSeparatedLine(
 				" --------->>>>>>>> Going to test adminController.addCustomer *BAD REQUEST*(cannot add if customerEmail allready exist):");
@@ -195,7 +209,7 @@ public class AdminClr implements CommandLineRunner {
 		cust55.setEmail("cust5@cust.com");
 		cust55.setPassword("55555555");
 
-		System.out.println(adminController.addCustomer(cust55, tokenManager.tokenForClrTest()));
+		System.out.println(adminController.addCustomer(cust55, token));
 
 		ClrUtils.testSeparatedLine(" --------->>>>>>>> Going to test adminController.updateCustomer:");
 
@@ -204,24 +218,24 @@ public class AdminClr implements CommandLineRunner {
 		cust3.setEmail("cust3@cust.com");
 		cust3.setPassword("3333");
 
-		System.out.println(adminController.updateCustomer(cust3, tokenManager.tokenForClrTest()));
+		System.out.println(adminController.updateCustomer(cust3, token));
 
 		ClrUtils.testSeparatedLine(" --------->>>>>>>> Going to test adminController.deleteCustomer:");
 
-		System.out.println(adminController.deleteCustomer(5, tokenManager.tokenForClrTest()));
+		System.out.println(adminController.deleteCustomer(5, token));
 
 		ClrUtils.testSeparatedLine(
 				" --------->>>>>>>> Going to test *bad request* for adminController.deleteCustomer: (customer not exsist)");
 
-		System.out.println(adminController.deleteCustomer(55, tokenManager.tokenForClrTest()));
+		System.out.println(adminController.deleteCustomer(55, token));
 
 		ClrUtils.testSeparatedLine(" --------->>>>>>>> Going to test adminController.getOneCustomerById:");
 
-		System.out.println(adminController.getOneCustomerById(1, tokenManager.tokenForClrTest()));
+		System.out.println(adminController.getOneCustomerById(1, token));
 
 		ClrUtils.testSeparatedLine(" --------->>>>>>>> Going to test adminController.getAllCustomers:");
 
-		System.out.println(adminController.getAllCustomers(tokenManager.tokenForClrTest()));
+		System.out.println(adminController.getAllCustomers(token));
 	}
 
 }

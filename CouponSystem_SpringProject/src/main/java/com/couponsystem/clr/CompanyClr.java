@@ -6,9 +6,13 @@ import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
 import com.couponsystem.beans.Coupon;
+import com.couponsystem.beans.LoginForm;
+import com.couponsystem.enums.ClientType;
 import com.couponsystem.enums.CouponCategory;
 import com.couponsystem.rest.CompanyController;
 import com.couponsystem.security.TokenManager;
+import com.couponsystem.service.LoginService;
+import com.couponsystem.security.LoginController;
 import com.couponsystem.utils.ClrUtils;
 import com.couponsystem.utils.DateUtil;
 
@@ -19,11 +23,14 @@ public class CompanyClr implements CommandLineRunner {
 	private TokenManager tokenManager;
 	private final CompanyController companyController;
 
+	private LoginService loginService;
+
 	@Autowired
-	public CompanyClr(TokenManager tokenManager, CompanyController companyController) {
+	public CompanyClr(TokenManager tokenManager, CompanyController companyController, LoginService loginService) {
 		super();
 		this.tokenManager = tokenManager;
 		this.companyController = companyController;
+		this.loginService = loginService;
 	}
 
 	@Override
@@ -42,6 +49,14 @@ public class CompanyClr implements CommandLineRunner {
 //	                         |_|                |___/                                              
 		ClrUtils.companyRestTests();
 
+		LoginForm loginForm = new LoginForm();
+		loginForm.setEmail("comp1Email@comp.com");
+		loginForm.setPasswoed("1111");
+		loginForm.setClientType(ClientType.COMPANY);
+		
+		String token = loginService.login(loginForm);
+		System.out.println(token);
+		
 //		------------------------------------------------------------------------------------------------------------
 
 		ClrUtils.testSeparatedLine(" --------->>>>>>>> Testing Company Login:");
@@ -145,14 +160,14 @@ public class CompanyClr implements CommandLineRunner {
 		coup8.setPrice(800);
 		coup8.setImage("www.compPng8.com");
 
-		System.out.println(companyController.addCompanyCoupon(coup1, tokenManager.tokenForClrTest()));
-		System.out.println(companyController.addCompanyCoupon(coup2, tokenManager.tokenForClrTest()));
-		System.out.println(companyController.addCompanyCoupon(coup3, tokenManager.tokenForClrTest()));
-		System.out.println(companyController.addCompanyCoupon(coup4, tokenManager.tokenForClrTest()));
-		System.out.println(companyController.addCompanyCoupon(coup5, tokenManager.tokenForClrTest()));
-		System.out.println(companyController.addCompanyCoupon(coup6, tokenManager.tokenForClrTest()));
-		System.out.println(companyController.addCompanyCoupon(coup7, tokenManager.tokenForClrTest()));
-		System.out.println(companyController.addCompanyCoupon(coup8, tokenManager.tokenForClrTest()));
+		System.out.println(companyController.addCompanyCoupon(coup1, token));
+		System.out.println(companyController.addCompanyCoupon(coup2, token));
+		System.out.println(companyController.addCompanyCoupon(coup3, token));
+		System.out.println(companyController.addCompanyCoupon(coup4, token));
+		System.out.println(companyController.addCompanyCoupon(coup5, token));
+		System.out.println(companyController.addCompanyCoupon(coup6, token));
+		System.out.println(companyController.addCompanyCoupon(coup7, token));
+		System.out.println(companyController.addCompanyCoupon(coup8, token));
 
 		ClrUtils.testSeparatedLine(
 				" --------->>>>>>>> Going to test *BAD REQUEST* for companyController.addCompanyCoupon: (company title coup7Title, already exists)");
@@ -167,7 +182,7 @@ public class CompanyClr implements CommandLineRunner {
 		coup77.setPrice(7700);
 		coup77.setImage("www.compPng77.com");
 
-		System.out.println(companyController.addCompanyCoupon(coup77, tokenManager.tokenForClrTest()));
+		System.out.println(companyController.addCompanyCoupon(coup77, token));
 
 		ClrUtils.testSeparatedLine(" --------->>>>>>>> Going to test companyController.updateCoupon:");
 
@@ -179,50 +194,50 @@ public class CompanyClr implements CommandLineRunner {
 		coup3.setPrice(300);
 		coup3.setImage("www.compPng3.com");
 
-		System.out.println(companyController.updateCompanyCoupon(coup3, tokenManager.tokenForClrTest()));
+		System.out.println(companyController.updateCompanyCoupon(coup3, token));
 
 		ClrUtils.testSeparatedLine(
 				" --------->>>>>>>> Going to test *BAD REQUEST* for companyController.updateCoupon: (update couponId not allowed)");
 
 		coup3.setId(1);
-		System.out.println(companyController.updateCompanyCoupon(coup3, tokenManager.tokenForClrTest()));
+		System.out.println(companyController.updateCompanyCoupon(coup3, token));
 
 		ClrUtils.testSeparatedLine(" --------->>>>>>>> Going to test companyController.deleteCompanyCoupon:");
 
-		System.out.println(companyController.deleteCompanyCoupon(5, tokenManager.tokenForClrTest()));
+		System.out.println(companyController.deleteCompanyCoupon(5, token));
 
 		ClrUtils.testSeparatedLine(
 				" --------->>>>>>>> Going to test *BAD REQUEST* for companyController.deleteCompanyCoupon: (coupon not exist)");
 
-		System.out.println(companyController.deleteCompanyCoupon(11, tokenManager.tokenForClrTest()));
+		System.out.println(companyController.deleteCompanyCoupon(11, token));
 
 		ClrUtils.testSeparatedLine(" --------->>>>>>>> Going to test companyController.getAllCompaniesCoupons:");
 
-		System.out.println(companyController.getAllCompaniesCoupons(tokenManager.tokenForClrTest()));
+		System.out.println(companyController.getAllCompaniesCoupons(token));
 
 		ClrUtils.testSeparatedLine(" --------->>>>>>>> Going to test companyController.getAllCouponsByCategory:");
 
 		System.out.println(
-				companyController.getAllCouponsByCategory(CouponCategory.RESTAURANT, tokenManager.tokenForClrTest()));
+				companyController.getAllCouponsByCategory(CouponCategory.RESTAURANT, token));
 
 		ClrUtils.testSeparatedLine(
 				" --------->>>>>>>> Going to test *BAD REQUEST* for companyController.getAllCouponsByCategory: (company coupons from category type not found)");
 
 		System.out.println(
-				companyController.getAllCouponsByCategory(CouponCategory.ELECTRICITY, tokenManager.tokenForClrTest()));
+				companyController.getAllCouponsByCategory(CouponCategory.ELECTRICITY, token));
 
 		ClrUtils.testSeparatedLine(" --------->>>>>>>> Going to test companyController.getAllCouponsUnderMaxPrice:");
 
-		System.out.println(companyController.getAllCouponsUnderMaxPrice(300, tokenManager.tokenForClrTest()));
+		System.out.println(companyController.getAllCouponsUnderMaxPrice(300, token));
 
 		ClrUtils.testSeparatedLine(
 				" --------->>>>>>>> Going to test *BAD REQUEST* forcompanyController.getAllCouponsUnderMaxPrice: (company coupons under max price not found)");
 
-		System.out.println(companyController.getAllCouponsUnderMaxPrice(22, tokenManager.tokenForClrTest()));
+		System.out.println(companyController.getAllCouponsUnderMaxPrice(22, token));
 
 		ClrUtils.testSeparatedLine(" --------->>>>>>>> Going to test companyController.getCompanyDetails:");
 
-		System.out.println(companyController.getCompanyDetails(tokenManager.tokenForClrTest()));
+		System.out.println(companyController.getCompanyDetails(token));
 	}
 
 }
