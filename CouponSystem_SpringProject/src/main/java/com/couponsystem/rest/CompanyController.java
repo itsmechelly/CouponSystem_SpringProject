@@ -26,7 +26,9 @@ import com.couponsystem.exceptions.NotAllowedException;
 import com.couponsystem.exceptions.NotFoundException;
 import com.couponsystem.security.LoginManagerService;
 import com.couponsystem.security.TokenManager;
+import com.couponsystem.service.AdminService;
 import com.couponsystem.service.CompanyService;
+import com.couponsystem.security.SessionContext;
 
 @RestController
 @RequestMapping("/company")
@@ -37,12 +39,15 @@ public class CompanyController extends ClientController {
 
 	private final TokenManager tokenManager;
 
+	private SessionContext sessionContext;
+
 	@Autowired
 	public CompanyController(LoginManagerService loginManagerService,
-			TokenManager tokenManager) {
+			TokenManager tokenManager, SessionContext sessionContext) {
 		super();
 		this.loginManagerService = loginManagerService;
 		this.tokenManager = tokenManager;
+		this.sessionContext = sessionContext;
 	}
 
 //	------------------------------------------------------------------------------------------------------------
@@ -82,8 +87,8 @@ public class CompanyController extends ClientController {
 			@RequestHeader(name = "CouponSystem_Header") String token) {
 
 		try {
-			tokenManager.isTokenExist(token);
-			return ResponseEntity.ok(((CompanyService) tokenManager.getClientService(token)).addCoupon(coupon));
+			sessionContext.isTokenExist(token);
+			return ResponseEntity.ok(((CompanyService) sessionContext.getClientService(token, ClientType.COMPANY)).addCoupon(coupon));
 		} catch (LogException e) {
 			return new ResponseEntity<>(e.getMessage(), HttpStatus.UNAUTHORIZED);
 		} catch (AlreadyExistException e) {
@@ -98,9 +103,9 @@ public class CompanyController extends ClientController {
 			@RequestHeader(name = "CouponSystem_Header") String token) throws AlreadyExistException {
 
 		try {
-			tokenManager.isTokenExist(token);
+			sessionContext.isTokenExist(token);
 			return ResponseEntity
-					.ok(((CompanyService) tokenManager.getClientService(token)).updateCoupon(coupon));
+					.ok(((CompanyService) sessionContext.getClientService(token, ClientType.COMPANY)).updateCoupon(coupon));
 		} catch (LogException e) {
 			return new ResponseEntity<>(e.getMessage(), HttpStatus.UNAUTHORIZED);
 		} catch (NotFoundException e) {
@@ -115,9 +120,9 @@ public class CompanyController extends ClientController {
 			@RequestHeader(name = "CouponSystem_Header") String token) {
 
 		try {
-			tokenManager.isTokenExist(token);
+			sessionContext.isTokenExist(token);
 			return ResponseEntity
-					.ok(((CompanyService) tokenManager.getClientService(token)).deleteCoupon(couponId));
+					.ok(((CompanyService) sessionContext.getClientService(token, ClientType.COMPANY)).deleteCoupon(couponId));
 		} catch (LogException e) {
 			return new ResponseEntity<>(e.getMessage(), HttpStatus.UNAUTHORIZED);
 		} catch (NotFoundException e) {
@@ -129,8 +134,8 @@ public class CompanyController extends ClientController {
 	public ResponseEntity<?> getAllCompaniesCoupons(@RequestHeader(name = "CouponSystem_Header") String token) {
 
 		try {
-			tokenManager.isTokenExist(token);
-			return ResponseEntity.ok(((CompanyService) tokenManager.getClientService(token)).getAllCoupons());
+			sessionContext.isTokenExist(token);
+			return ResponseEntity.ok(((CompanyService) sessionContext.getClientService(token, ClientType.COMPANY)).getAllCoupons());
 		} catch (LogException e) {
 			return new ResponseEntity<>(e.getMessage(), HttpStatus.UNAUTHORIZED);
 		} catch (NotFoundException e) {
@@ -143,9 +148,9 @@ public class CompanyController extends ClientController {
 			@RequestHeader(name = "CouponSystem_Header") String token) {
 
 		try {
-			tokenManager.isTokenExist(token);
+			sessionContext.isTokenExist(token);
 			return ResponseEntity.ok(
-					((CompanyService) tokenManager.getClientService(token)).getAllCouponsByCategory(couponCategory));
+					((CompanyService) sessionContext.getClientService(token, ClientType.COMPANY)).getAllCouponsByCategory(couponCategory));
 		} catch (LogException e) {
 			return new ResponseEntity<>(e.getMessage(), HttpStatus.UNAUTHORIZED);
 		} catch (NotFoundException e) {
@@ -158,9 +163,9 @@ public class CompanyController extends ClientController {
 			@RequestHeader(name = "CouponSystem_Header") String token) {
 
 		try {
-			tokenManager.isTokenExist(token);
+			sessionContext.isTokenExist(token);
 			return ResponseEntity
-					.ok(((CompanyService) tokenManager.getClientService(token)).getAllCouponsUnderMaxPrice(maxPrice));
+					.ok(((CompanyService) sessionContext.getClientService(token, ClientType.COMPANY)).getAllCouponsUnderMaxPrice(maxPrice));
 		} catch (LogException e) {
 			return new ResponseEntity<>(e.getMessage(), HttpStatus.UNAUTHORIZED);
 		} catch (NotFoundException e) {
@@ -172,8 +177,8 @@ public class CompanyController extends ClientController {
 	public ResponseEntity<?> getCompanyDetails(@RequestHeader(name = "CouponSystem_Header") String token) {
 
 		try {
-			tokenManager.isTokenExist(token);
-			return ResponseEntity.ok(((CompanyService) tokenManager.getClientService(token)).getCompanyDetails());
+			sessionContext.isTokenExist(token);
+			return ResponseEntity.ok(((CompanyService) sessionContext.getClientService(token, ClientType.COMPANY)).getCompanyDetails());
 		} catch (LogException e) {
 			return new ResponseEntity<>(e.getMessage(), HttpStatus.UNAUTHORIZED);
 		} catch (NotFoundException e) {

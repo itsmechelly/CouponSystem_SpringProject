@@ -26,8 +26,8 @@ import com.couponsystem.exceptions.LogException;
 import com.couponsystem.exceptions.NotAllowedException;
 import com.couponsystem.exceptions.NotFoundException;
 import com.couponsystem.security.LoginManagerService;
-import com.couponsystem.security.TokenManager;
 import com.couponsystem.service.AdminService;
+import com.couponsystem.security.SessionContext;
 
 @RestController
 @RequestMapping("/admin")
@@ -35,15 +35,15 @@ import com.couponsystem.service.AdminService;
 public class AdminController extends ClientController {
 
 	private final LoginManagerService loginManagerService;
-
-	private final TokenManager tokenManager;
-
+	
+	private SessionContext sessionContext;
+	
 	@Autowired
 	public AdminController(LoginManagerService loginManagerService,
-			TokenManager tokenManager) {
+			 SessionContext sessionContext) {
 		super();
 		this.loginManagerService = loginManagerService;
-		this.tokenManager = tokenManager;
+		this.sessionContext = sessionContext;
 	}
 
 //	------------------------------------------------------------------------------------------------------------
@@ -83,8 +83,8 @@ public class AdminController extends ClientController {
 			@RequestHeader(name = "CouponSystem_Header") String token) {
 
 		try {
-			tokenManager.isTokenExist(token);
-			return ResponseEntity.ok(((AdminService) tokenManager.getClientService(token)).addCompany(company));
+			sessionContext.isTokenExist(token);
+			return ResponseEntity.ok(( (AdminService) sessionContext.getClientService(token, ClientType.ADMIN)).addCompany(company));
 		} catch (LogException e) {
 			return new ResponseEntity<>(e.getMessage(), HttpStatus.UNAUTHORIZED);
 		} catch (AlreadyExistException e) {
@@ -99,8 +99,8 @@ public class AdminController extends ClientController {
 			@RequestHeader(name = "CouponSystem_Header") String token) {
 
 		try {
-			tokenManager.isTokenExist(token);
-			return ResponseEntity.ok(((AdminService) tokenManager.getClientService(token)).updateCompany(company));
+			sessionContext.isTokenExist(token);
+			return ResponseEntity.ok(((AdminService) sessionContext.getClientService(token, ClientType.ADMIN)).updateCompany(company));
 		} catch (LogException e) {
 			return new ResponseEntity<>(e.getMessage(), HttpStatus.UNAUTHORIZED);
 		} catch (NotFoundException e) {
@@ -115,8 +115,8 @@ public class AdminController extends ClientController {
 			@RequestHeader(name = "CouponSystem_Header") String token) {
 
 		try {
-			tokenManager.isTokenExist(token);
-			return ResponseEntity.ok(((AdminService) tokenManager.getClientService(token)).deleteCompany(companyId));
+			sessionContext.isTokenExist(token);
+			return ResponseEntity.ok(((AdminService) sessionContext.getClientService(token, ClientType.ADMIN)).deleteCompany(companyId));
 		} catch (LogException e) {
 			return new ResponseEntity<>(e.getMessage(), HttpStatus.UNAUTHORIZED);
 		} catch (NotFoundException e) {
@@ -129,9 +129,9 @@ public class AdminController extends ClientController {
 			@RequestHeader(name = "CouponSystem_Header") String token) {
 
 		try {
-			tokenManager.isTokenExist(token);
+			sessionContext.isTokenExist(token);
 			return ResponseEntity
-					.ok(((AdminService) tokenManager.getClientService(token)).getOneCompanyById(companyId));
+					.ok(((AdminService) sessionContext.getClientService(token, ClientType.ADMIN)).getOneCompanyById(companyId));
 		} catch (LogException e) {
 			return new ResponseEntity<>(e.getMessage(), HttpStatus.UNAUTHORIZED);
 		} catch (NotFoundException e) {
@@ -143,8 +143,8 @@ public class AdminController extends ClientController {
 	public ResponseEntity<?> getAllCompanies(@RequestHeader(name = "CouponSystem_Header") String token) {
 
 		try {
-			tokenManager.isTokenExist(token);
-			return ResponseEntity.ok(((AdminService) tokenManager.getClientService(token)).getAllCompanies());
+			sessionContext.isTokenExist(token);
+			return ResponseEntity.ok(((AdminService) sessionContext.getClientService(token, ClientType.ADMIN)).getAllCompanies());
 		} catch (LogException e) {
 			return new ResponseEntity<>(e.getMessage(), HttpStatus.UNAUTHORIZED);
 		} catch (NotFoundException e) {
@@ -156,9 +156,9 @@ public class AdminController extends ClientController {
 	public ResponseEntity<?> addCustomer(@RequestBody Customer customer, @RequestHeader(name = "CouponSystem_Header") String token) {
 
 		try {
-			tokenManager.isTokenExist(token);
+			sessionContext.isTokenExist(token);
 			return ResponseEntity
-					.ok(((AdminService) tokenManager.getClientService(token)).addCustomer(customer));	
+					.ok(((AdminService) sessionContext.getClientService(token, ClientType.ADMIN)).addCustomer(customer));	
 		} catch (LogException e) {
 			return new ResponseEntity<>(e.getMessage(), HttpStatus.UNAUTHORIZED);
 		} catch (AlreadyExistException e) {
@@ -173,9 +173,9 @@ public class AdminController extends ClientController {
 
 		try {
 			
-			tokenManager.isTokenExist(token);
+			sessionContext.isTokenExist(token);
 			return ResponseEntity
-					.ok(((AdminService) tokenManager.getClientService(token)).updateCustomer(customer));
+					.ok(((AdminService) sessionContext.getClientService(token, ClientType.ADMIN)).updateCustomer(customer));
 		} catch (LogException e) {
 			return new ResponseEntity<>(e.getMessage(), HttpStatus.UNAUTHORIZED);
 		} catch (NotFoundException e) {
@@ -187,9 +187,9 @@ public class AdminController extends ClientController {
 	public ResponseEntity<?> deleteCustomer(@PathVariable int customerId, @RequestHeader(name = "CouponSystem_Header") String token) {
 
 		try {
-			tokenManager.isTokenExist(token);
+			sessionContext.isTokenExist(token);
 			return ResponseEntity
-					.ok(((AdminService) tokenManager.getClientService(token)).deleteCustomer(customerId));
+					.ok(((AdminService) sessionContext.getClientService(token, ClientType.ADMIN)).deleteCustomer(customerId));
 		} catch (LogException e) {
 			return new ResponseEntity<>(e.getMessage(), HttpStatus.UNAUTHORIZED);
 		} catch (NotFoundException e) {
@@ -201,9 +201,9 @@ public class AdminController extends ClientController {
 	public ResponseEntity<?> getOneCustomerById(@PathVariable int customerId, @RequestHeader(name = "CouponSystem_Header") String token) {
 
 		try {
-			tokenManager.isTokenExist(token);
+			sessionContext.isTokenExist(token);
 			return ResponseEntity
-					.ok(((AdminService) tokenManager.getClientService(token)).getOneCustomerById(customerId));
+					.ok(((AdminService) sessionContext.getClientService(token, ClientType.ADMIN)).getOneCustomerById(customerId));
 		} catch (LogException e) {
 			return new ResponseEntity<>(e.getMessage(), HttpStatus.UNAUTHORIZED);
 		} catch (NotFoundException e) {
@@ -214,9 +214,9 @@ public class AdminController extends ClientController {
 	@GetMapping("/getAllCustomers")
 	public ResponseEntity<?> getAllCustomers(@RequestHeader(name = "CouponSystem_Header") String token) throws CouponSystemException {
 		try {
-			tokenManager.isTokenExist(token);
+			sessionContext.isTokenExist(token);
 			return ResponseEntity
-					.ok(((AdminService) tokenManager.getClientService(token)).getAllCustomers());
+					.ok(((AdminService) sessionContext.getClientService(token, ClientType.ADMIN)).getAllCustomers());
 		} catch (LogException e) {
 			return new ResponseEntity<>(e.getMessage(), HttpStatus.UNAUTHORIZED);
 		} catch (NotFoundException e) {
