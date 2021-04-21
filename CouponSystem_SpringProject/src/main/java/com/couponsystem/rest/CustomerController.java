@@ -25,7 +25,7 @@ import com.couponsystem.security.SessionContext;
 @RestController
 @RequestMapping("/customer")
 @CrossOrigin(origins = "http://localhost:4200", allowedHeaders = "*")
-public class CustomerController {//extends ClientController {
+public class CustomerController {
 	
 	private SessionContext sessionContext;
 
