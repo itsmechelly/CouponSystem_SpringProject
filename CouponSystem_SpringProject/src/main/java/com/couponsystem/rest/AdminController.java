@@ -1,7 +1,6 @@
 package com.couponsystem.rest;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -13,68 +12,31 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.couponsystem.beans.Company;
 import com.couponsystem.beans.Customer;
-import com.couponsystem.beans.LoginResponse;
 import com.couponsystem.enums.ClientType;
 import com.couponsystem.exceptions.AlreadyExistException;
 import com.couponsystem.exceptions.CouponSystemException;
 import com.couponsystem.exceptions.LogException;
 import com.couponsystem.exceptions.NotAllowedException;
 import com.couponsystem.exceptions.NotFoundException;
-import com.couponsystem.security.LoginManagerService;
 import com.couponsystem.service.AdminService;
 import com.couponsystem.security.SessionContext;
 
 @RestController
 @RequestMapping("/admin")
 @CrossOrigin(origins = "http://localhost:4200", allowedHeaders = "*")
-public class AdminController {//extends ClientController {
-
-	private final LoginManagerService loginManagerService;
+public class AdminController {
 	
 	private SessionContext sessionContext;
 	
 	@Autowired
-	public AdminController(LoginManagerService loginManagerService,
-			 SessionContext sessionContext) {
+	public AdminController(SessionContext sessionContext) {
 		super();
-		this.loginManagerService = loginManagerService;
 		this.sessionContext = sessionContext;
 	}
-
-//	------------------------------------------------------------------------------------------------------------
-
-//	@PostMapping("/login")
-//	@Override
-//	public ResponseEntity<?> ClientLogin(@RequestParam String email, @RequestParam String password)
-//			throws LogException {
-//
-//		HttpHeaders responseHeaders = new HttpHeaders();
-//
-//		try {
-//			String token = loginManagerService.login(email, password, ClientType.ADMIN);
-//			responseHeaders.set("CouponSystem_Header", token);
-//			System.out.println("Admin token = " + token);
-//			
-//			LoginResponse loginResponse = new LoginResponse();
-//			loginResponse.setToken(token);
-//			loginResponse.setType("admin");
-//			return ResponseEntity.ok().headers(responseHeaders).body(loginResponse);
-//
-//		} catch (LogException e) {
-//			return new ResponseEntity<>(e.getMessage(), HttpStatus.UNAUTHORIZED);
-//		}
-//	}
-//
-//	@Override
-//	public ResponseEntity<?> ClientLogout() throws LogException {
-//		// TODO Auto-generated method stub
-//		return null;
-//	}
 
 //	------------------------------------------------------------------------------------------------------------
 
