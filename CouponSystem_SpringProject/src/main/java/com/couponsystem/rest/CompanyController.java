@@ -26,59 +26,54 @@ import com.couponsystem.exceptions.NotAllowedException;
 import com.couponsystem.exceptions.NotFoundException;
 import com.couponsystem.security.LoginManagerService;
 import com.couponsystem.security.TokenManager;
-import com.couponsystem.service.AdminService;
 import com.couponsystem.service.CompanyService;
 import com.couponsystem.security.SessionContext;
 
 @RestController
 @RequestMapping("/company")
 @CrossOrigin(origins = "http://localhost:4200", allowedHeaders = "*")
-public class CompanyController extends ClientController {
+public class CompanyController {//extends ClientController {
 
 	private final LoginManagerService loginManagerService;
-
-	private final TokenManager tokenManager;
-
-	private SessionContext sessionContext;
+	private final SessionContext sessionContext;
 
 	@Autowired
 	public CompanyController(LoginManagerService loginManagerService,
 			TokenManager tokenManager, SessionContext sessionContext) {
 		super();
 		this.loginManagerService = loginManagerService;
-		this.tokenManager = tokenManager;
 		this.sessionContext = sessionContext;
 	}
 
 //	------------------------------------------------------------------------------------------------------------
 
-	@PostMapping("/login")
-	@Override
-	public ResponseEntity<?> ClientLogin(String email, String password) throws LogException {
-
-		HttpHeaders responseHeaders = new HttpHeaders();
-
-		try {
-			String token = loginManagerService.login(email, password, ClientType.COMPANY);
-			responseHeaders.set("CouponSystem_Header", token);
-			System.out.println("Company token = " + token);
-			
-			LoginResponse loginResponse = new LoginResponse();
-			loginResponse.setToken(token);
-			loginResponse.setType("company");
-			return ResponseEntity.ok().headers(responseHeaders).body(loginResponse);
-
-		} catch (LogException e) {
-			return new ResponseEntity<>(e.getMessage(), HttpStatus.UNAUTHORIZED);
-		}
-
-	}
-
-	@Override
-	public ResponseEntity<?> ClientLogout() throws LogException {
-		// TODO Auto-generated method stub
-		return null;
-	}
+//	@PostMapping("/login")
+//	@Override
+//	public ResponseEntity<?> ClientLogin(String email, String password) throws LogException {
+//
+//		HttpHeaders responseHeaders = new HttpHeaders();
+//
+//		try {
+//			String token = loginManagerService.login(email, password, ClientType.COMPANY);
+//			responseHeaders.set("CouponSystem_Header", token);
+//			System.out.println("Company token = " + token);
+//			
+//			LoginResponse loginResponse = new LoginResponse();
+//			loginResponse.setToken(token);
+//			loginResponse.setType("company");
+//			return ResponseEntity.ok().headers(responseHeaders).body(loginResponse);
+//
+//		} catch (LogException e) {
+//			return new ResponseEntity<>(e.getMessage(), HttpStatus.UNAUTHORIZED);
+//		}
+//
+//	}
+//
+//	@Override
+//	public ResponseEntity<?> ClientLogout() throws LogException {
+//		// TODO Auto-generated method stub
+//		return null;
+//	}
 
 //	------------------------------------------------------------------------------------------------------------
 

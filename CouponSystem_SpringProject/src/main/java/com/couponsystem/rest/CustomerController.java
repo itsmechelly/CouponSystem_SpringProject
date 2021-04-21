@@ -29,7 +29,7 @@ import com.couponsystem.security.SessionContext;
 @RestController
 @RequestMapping("/customer")
 @CrossOrigin(origins = "http://localhost:4200", allowedHeaders = "*")
-public class CustomerController extends ClientController {
+public class CustomerController {//extends ClientController {
 	
 	private final LoginManagerService loginManagerService;
 
@@ -47,32 +47,32 @@ public class CustomerController extends ClientController {
 
 //	------------------------------------------------------------------------------------------------------------
 	
-	@PostMapping("/login")
-	@Override
-	public ResponseEntity<?> ClientLogin(String email, String password) throws LogException {
-
-		HttpHeaders responseHeaders = new HttpHeaders();
-
-		try {
-			String token = loginManagerService.login(email, password, ClientType.CUSTOMER);
-			responseHeaders.set("CouponSystem_Header", token);
-			System.out.println("Customer token = " + token);
-
-			LoginResponse loginResponse = new LoginResponse();
-			loginResponse.setToken(token);
-			loginResponse.setType("customer");
-			return ResponseEntity.ok().headers(responseHeaders).body(loginResponse);
-
-		} catch (LogException e) {
-			return new ResponseEntity<>(e.getMessage(), HttpStatus.UNAUTHORIZED);
-		}
-	}
-
-	@Override
-	public ResponseEntity<?> ClientLogout() throws LogException {
-		// TODO Auto-generated method stub
-		return null;
-	}
+//	@PostMapping("/login")
+//	@Override
+//	public ResponseEntity<?> ClientLogin(String email, String password) throws LogException {
+//
+//		HttpHeaders responseHeaders = new HttpHeaders();
+//
+//		try {
+//			String token = loginManagerService.login(email, password, ClientType.CUSTOMER);
+//			responseHeaders.set("CouponSystem_Header", token);
+//			System.out.println("Customer token = " + token);
+//
+//			LoginResponse loginResponse = new LoginResponse();
+//			loginResponse.setToken(token);
+//			loginResponse.setType("customer");
+//			return ResponseEntity.ok().headers(responseHeaders).body(loginResponse);
+//
+//		} catch (LogException e) {
+//			return new ResponseEntity<>(e.getMessage(), HttpStatus.UNAUTHORIZED);
+//		}
+//	}
+//
+//	@Override
+//	public ResponseEntity<?> ClientLogout() throws LogException {
+//		// TODO Auto-generated method stub
+//		return null;
+//	}
 
 //	------------------------------------------------------------------------------------------------------------
 

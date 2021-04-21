@@ -10,30 +10,18 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.couponsystem.beans.LoginForm;
 import com.couponsystem.beans.LoginResponse;
-import com.couponsystem.enums.ClientType;
 import com.couponsystem.exceptions.LogException;
-import com.couponsystem.service.AdminService;
-import com.couponsystem.service.CompanyService;
-import com.couponsystem.service.CustomerService;
 import com.couponsystem.service.LoginService;
 
 @RestController
 public class LoginController {
 
 	@Autowired
-	private SessionContext sessionContext;
-	private final AdminService adminService;
-	private CompanyService companyService;
-	private CustomerService customerService;
-	private LoginService loginService;
+	private final LoginService loginService;
 
 	
-	public LoginController(LoginService loginService, SessionContext sessionContext, AdminService adminService, CompanyService companyService, CustomerService customerService) {
+	public LoginController(LoginService loginService) {
 		super();
-		this.sessionContext = sessionContext;
-		this.adminService = adminService;
-		this.companyService = companyService;
-		this.customerService = customerService;	
 		this.loginService = loginService;
 	}
 
