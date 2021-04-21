@@ -57,18 +57,18 @@ public class AdminClr implements CommandLineRunner {
 		
 //		------------------------------------------------------------------------------------------------------------
 
-		ClrUtils.testSeparatedLine(" --------->>>>>>>> Testing Admin Login:");
-
-		System.out.println("Going to test login exception - *WRONG* *Email*:");
-		System.out.println(adminController.ClientLogin("BADadmin@BADadmin.com", "admin"));
-
-		System.out.println();
-		System.out.println("Going to test login exception - *WRONG* *Password*:");
-		System.out.println(adminController.ClientLogin("admin@admin.com", "nimda"));
-
-		System.out.println();
-		System.out.println("Going to test GOOD admin login:");
-		System.out.println(adminController.ClientLogin("admin@admin.com", "admin"));
+//		ClrUtils.testSeparatedLine(" --------->>>>>>>> Testing Admin Login:");
+//
+//		System.out.println("Going to test login exception - *WRONG* *Email*:");
+//		System.out.println(adminController.ClientLogin("BADadmin@BADadmin.com", "admin"));
+//
+//		System.out.println();
+//		System.out.println("Going to test login exception - *WRONG* *Password*:");
+//		System.out.println(adminController.ClientLogin("admin@admin.com", "nimda"));
+//
+//		System.out.println();
+//		System.out.println("Going to test GOOD admin login:");
+//		System.out.println(adminController.ClientLogin("admin@admin.com", "admin"));
 
 //		TODO -> Logout
 //		ClrUtils.testSeparatedLine(" --------->>>>>>>> Going to test Admin Logout:");

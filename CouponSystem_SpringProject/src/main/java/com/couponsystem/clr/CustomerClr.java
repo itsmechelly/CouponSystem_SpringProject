@@ -60,18 +60,18 @@ public class CustomerClr implements CommandLineRunner {
 
 //		------------------------------------------------------------------------------------------------------------
 
-		ClrUtils.testSeparatedLine(" --------->>>>>>>> Testing Company Login:");
-
-		System.out.println("Going to test login exception - *WRONG* *Email*:");
-		System.out.println(customerController.ClientLogin("BADcust@cust.com", "1111"));
-
-		System.out.println();
-		System.out.println("Going to test login exception - *WRONG* *Password*:");
-		System.out.println(customerController.ClientLogin("cust1@cust.com", "1010"));
-
-		System.out.println();
-		System.out.println("Going to test GOOD customer login:");
-		System.out.println(customerController.ClientLogin("cust1@cust.com", "1111"));
+//		ClrUtils.testSeparatedLine(" --------->>>>>>>> Testing Company Login:");
+//
+//		System.out.println("Going to test login exception - *WRONG* *Email*:");
+//		System.out.println(customerController.ClientLogin("BADcust@cust.com", "1111"));
+//
+//		System.out.println();
+//		System.out.println("Going to test login exception - *WRONG* *Password*:");
+//		System.out.println(customerController.ClientLogin("cust1@cust.com", "1010"));
+//
+//		System.out.println();
+//		System.out.println("Going to test GOOD customer login:");
+//		System.out.println(customerController.ClientLogin("cust1@cust.com", "1111"));
 
 //		TODO -> Logout
 //		ClrUtils.testSeparatedLine(" --------->>>>>>>> Going to test Customer Logout:");
