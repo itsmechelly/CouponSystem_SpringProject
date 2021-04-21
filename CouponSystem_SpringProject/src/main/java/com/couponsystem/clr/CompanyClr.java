@@ -22,15 +22,16 @@ public class CompanyClr implements CommandLineRunner {
 
 	private TokenManager tokenManager;
 	private final CompanyController companyController;
-
+	private final LoginController loginController;
 	private LoginService loginService;
 
 	@Autowired
-	public CompanyClr(TokenManager tokenManager, CompanyController companyController, LoginService loginService) {
+	public CompanyClr(TokenManager tokenManager, LoginController loginController, CompanyController companyController, LoginService loginService) {
 		super();
 		this.tokenManager = tokenManager;
 		this.companyController = companyController;
 		this.loginService = loginService;
+		this.loginController = loginController;
 	}
 
 	@Override
@@ -55,7 +56,9 @@ public class CompanyClr implements CommandLineRunner {
 		loginForm.setClientType(ClientType.COMPANY);
 		
 		String token = loginService.login(loginForm);
+		String token2 = loginController.login(loginForm).toString();
 		System.out.println(token);
+		System.out.println(token2);
 		
 //		------------------------------------------------------------------------------------------------------------
 
