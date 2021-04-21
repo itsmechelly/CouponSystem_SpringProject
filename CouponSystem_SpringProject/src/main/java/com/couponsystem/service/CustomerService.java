@@ -45,10 +45,9 @@ public class CustomerService extends ClientService{
 		return cForCustomerId.getId();
 	}
 //	------------------------------------------------------------------------------------------------------------
-
+	
 	public Coupon purchaseCoupon(Coupon coupon) throws PurchaseCouponException, LogException, NotFoundException {
 
-			
 		Coupon coupFromDb = customerImpl.findCouponById(coupon.getId());
 		Customer custFromDb = customerImpl.findCustomerById(this.customerId);
 		List<Coupon> coupListFromDb = customerImpl.getCouponsByCustomersId(this.customerId);
@@ -67,7 +66,7 @@ public class CustomerService extends ClientService{
 
 		return coupFromDb;
 	}
-
+	
 	public List<Coupon> getAllCoupons() throws NotFoundException, LogException {
 
 		List<Coupon> customerFromDb = customerImpl.getCouponsByCustomersId(this.customerId);

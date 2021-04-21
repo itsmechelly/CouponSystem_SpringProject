@@ -16,8 +16,6 @@ import org.springframework.stereotype.Component;
 
 import com.couponsystem.enums.ClientType;
 import com.couponsystem.exceptions.NotFoundException;
-import com.couponsystem.security.CustomSession;
-import com.couponsystem.service.ClientService;
 
 @Component
 public class SessionContext {
@@ -86,7 +84,7 @@ public class SessionContext {
 		}
 	}
 	
-	//////////////////////////////////////////////////
+	///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	
 	public boolean isTokenExist(String token) throws NotFoundException {
 		Session session = sessions.get(token);

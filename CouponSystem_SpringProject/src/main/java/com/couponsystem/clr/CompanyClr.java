@@ -10,7 +10,6 @@ import com.couponsystem.beans.LoginForm;
 import com.couponsystem.enums.ClientType;
 import com.couponsystem.enums.CouponCategory;
 import com.couponsystem.rest.CompanyController;
-import com.couponsystem.security.TokenManager;
 import com.couponsystem.service.LoginService;
 import com.couponsystem.security.LoginController;
 import com.couponsystem.utils.ClrUtils;
@@ -20,18 +19,16 @@ import com.couponsystem.utils.DateUtil;
 @Order(2)
 public class CompanyClr implements CommandLineRunner {
 
-	private TokenManager tokenManager;
-	private final CompanyController companyController;
 	private final LoginController loginController;
-	private LoginService loginService;
+	private final CompanyController companyController;
+	private final LoginService loginService;
 
 	@Autowired
-	public CompanyClr(TokenManager tokenManager, LoginController loginController, CompanyController companyController, LoginService loginService) {
+	public CompanyClr(LoginController loginController, CompanyController companyController, LoginService loginService) {
 		super();
-		this.tokenManager = tokenManager;
+		this.loginController = loginController;
 		this.companyController = companyController;
 		this.loginService = loginService;
-		this.loginController = loginController;
 	}
 
 	@Override
@@ -50,6 +47,20 @@ public class CompanyClr implements CommandLineRunner {
 //	                         |_|                |___/                                              
 		ClrUtils.companyRestTests();
 
+//		------------------------------------------------------------------------------------------------------------
+
+		ClrUtils.testSeparatedLine(" --------->>>>>>>> Testing Company Login:");
+//
+//		System.out.println("Going to test login exception - *WRONG* *Email*:");
+//		System.out.println(companyController.ClientLogin("BADcomp@comp.com", "1111"));
+//
+//		System.out.println();
+//		System.out.println("Going to test login exception - *WRONG* *Password*:");
+//		System.out.println(companyController.ClientLogin("comp1Email@comp.com", "1010"));
+//
+		System.out.println();
+		System.out.println("Going to test GOOD company login:");
+		
 		LoginForm loginForm = new LoginForm();
 		loginForm.setEmail("comp1Email@comp.com");
 		loginForm.setPasswoed("1111");
@@ -60,21 +71,6 @@ public class CompanyClr implements CommandLineRunner {
 		System.out.println(token);
 		System.out.println(token2);
 		
-//		------------------------------------------------------------------------------------------------------------
-
-//		ClrUtils.testSeparatedLine(" --------->>>>>>>> Testing Company Login:");
-//
-//		System.out.println("Going to test login exception - *WRONG* *Email*:");
-//		System.out.println(companyController.ClientLogin("BADcomp@comp.com", "1111"));
-//
-//		System.out.println();
-//		System.out.println("Going to test login exception - *WRONG* *Password*:");
-//		System.out.println(companyController.ClientLogin("comp1Email@comp.com", "1010"));
-//
-//		System.out.println();
-//		System.out.println("Going to test GOOD company login:");
-//		System.out.println(companyController.ClientLogin("comp1Email@comp.com", "1111"));
-
 //		TODO -> Logout
 //		ClrUtils.testSeparatedLine(" --------->>>>>>>> Going to test Company Logout:");
 
