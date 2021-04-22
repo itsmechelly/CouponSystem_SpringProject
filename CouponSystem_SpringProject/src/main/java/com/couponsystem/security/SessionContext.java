@@ -14,7 +14,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Component;
 
-import com.couponsystem.enums.ClientType;
 import com.couponsystem.exceptions.NotFoundException;
 
 @Component
@@ -24,7 +23,7 @@ public class SessionContext {
 	private ApplicationContext ctx; // to get new session beans
 	private Map<String, Session> sessions = new ConcurrentHashMap<>(); // thread safe map
 	private Timer timer = new Timer(); // needed for removal of expired sessions
-	@Value("${session.remove.expired.period:20}")
+	@Value("${session.remove.expired.period:20000}")
 	private int removeExpiredSessionsPeriod; // time between each removal task run (in seconds)
 
 	private boolean isSessionExpired(Session session) {
@@ -87,16 +86,21 @@ public class SessionContext {
 	///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	
 	public boolean isTokenExist(String token) throws NotFoundException {
+		System.out.println(token);
 		Session session = sessions.get(token);
+		System.out.println("1");
 		if (session != null) {
+			System.out.println("2");
 			return true;
 		}
-		throw new NotFoundException("token");
+		System.out.println("3");
+		System.out.println(token);
+		throw new NotFoundException("tommmmmmmmmmmmmmmmmmmsken");
 	}
 	
-	public Object getClientService(String token, ClientType attrName) {
+	public Object getClientService(String token, String attrKey) {
 		Session session = sessions.get(token);
-		return session.getAttribute(attrName);
+		return session.getAttribute(attrKey);
 	}
 
 }

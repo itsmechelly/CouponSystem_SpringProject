@@ -11,17 +11,15 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
-import com.couponsystem.enums.ClientType;
-
 @Component
 @Scope("prototype")
 public class Session {
 
 	// fields
 	public final String token; // identifier of a session
-	private Map<ClientType, Object> attributes = new HashMap<>(); // session state
+	private Map<String, Object> attributes = new HashMap<>(); // session state
 	private long lastAccessed; // needed for managing session expiration
-	@Value("${session.max.inactive.interval:2}") // injection happens after CTOR
+	@Value("${session.max.inactive.interval:2000}") // injection happens after CTOR
 	private long maxInactiveInterval; // in milliseconds - needed for managing session expiration
 	private static final int TOKEN_MAX_LENGTH = 15;
 	
@@ -47,12 +45,12 @@ public class Session {
 		return lastAccessed;
 	}
 
-	public void setAttribute(ClientType clientType, Object attrVal) {
-		attributes.put(clientType, attrVal);
+	public void setAttribute(String attrKey, Object attrVal) {
+		attributes.put(attrKey, attrVal);
 	}
 
-	public Object getAttribute(ClientType clientType) {
-		return attributes.get(clientType);
+	public Object getAttribute(String attrKey) {
+		return attributes.get(attrKey);
 	}
 
 	// this is needed for session context to decide on session invalidation
