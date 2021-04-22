@@ -1,6 +1,7 @@
 package com.couponsystem.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 
@@ -13,6 +14,7 @@ import com.couponsystem.security.SessionContext;
 @Lazy
 public class LoginService {
 	
+	public ApplicationContext ctx;
 	private SessionContext sessionContext;
 	private AdminService adminService;
 	private CompanyService companyService;
@@ -33,38 +35,49 @@ public class LoginService {
 		switch (loginForm.getClientType()) {
 		
 		case ADMIN:
-			
-			if (adminService.login(loginForm.getEmail(), loginForm.getPasswoed())) {
+//			adminService = ctx.getBean(AdminService.class);
+//			AdminService adminService = ctx.getBean(AdminService.class);
+			if (adminService.login(loginForm.getEmail(), loginForm.getPassword())) {
+				
 				Session session = sessionContext.createSession();
-				session.setAttribute(loginForm.getClientType(), adminService);
+				session.setAttribute("ClientType", loginForm.getClientType());
+				session.setAttribute("ADMIN", adminService);
 				return session.token;
 			}
 			
 		case COMPANY:
 			
 //			companyService = ctx.getBean(CompanyService.class);
-			if (companyService.login(loginForm.getEmail(), loginForm.getPasswoed())) {
-				int companyId = companyService.findCompanyIdByEmailAndPassword("comp1Email@comp.com", "1111");
+//			CompanyService companyService = ctx.getBean(CompanyService.class);
+			if (companyService.login(loginForm.getEmail(), loginForm.getPassword())) {
+				
+				int companyId = companyService.findCompanyIdByEmailAndPassword(loginForm.getEmail(), loginForm.getPassword());
 				companyService.setCompanyId(companyId);
+				
 				Session session = sessionContext.createSession();
-				session.setAttribute(loginForm.getClientType(), companyService);
+				session.setAttribute("ClientType", loginForm.getClientType());
+				session.setAttribute("COMPANY", companyService);
 				return session.token;
 			}
 			
 		case CUSTOMER:
 			
 //			customerService = ctx.getBean(CustomerService.class);
-			if (customerService.login(loginForm.getEmail(), "1111")) {
-				int customerId = customerService.findCustomerIdByEmailAndPassword("cust1@cust.com", "1111");
+//			CustomerService customerService = ctx.getBean(CustomerService.class);
+			if (customerService.login(loginForm.getEmail(), loginForm.getPassword())) {
+				
+				int customerId = customerService.findCustomerIdByEmailAndPassword(loginForm.getEmail(), loginForm.getPassword());
 				customerService.setCustomerId(customerId);
+				
 				Session session = sessionContext.createSession();
-				session.setAttribute(loginForm.getClientType(), customerService);
+				session.setAttribute("ClientType", loginForm.getClientType());
+				session.setAttribute("CUSTOMER", customerService);
 				return session.token;
 			}
 			
 		default:
 			throw new LogException();
 		}
-		
 	}
+	
 }

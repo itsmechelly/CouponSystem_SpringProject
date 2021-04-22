@@ -1,6 +1,5 @@
 package com.couponsystem.security;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,13 +16,18 @@ import com.couponsystem.service.LoginService;
 @RestController
 public class LoginController {
 
-	@Autowired
+	//TODO - the token variable below is only for CLR testing, not for production!
+	public String token;
 	private final LoginService loginService;
-
 	
-	public LoginController(LoginService loginService) {
+	public LoginController(String token, LoginService loginService) {
 		super();
+		this.token = token;
 		this.loginService = loginService;
+	}
+
+	public String getToken() {
+		return this.token;
 	}
 
 
@@ -33,12 +37,14 @@ public class LoginController {
 		HttpHeaders responseHeaders = new HttpHeaders();
 
 		try {
-			String token = loginService.login(loginForm);
-			responseHeaders.set("CouponSystem_Header", token);
+			
+			this.token = loginService.login(loginForm);
+			
+			responseHeaders.set("CouponSystem_Header", this.token);
 			
 			LoginResponse loginResponse = new LoginResponse();
-			loginResponse.setToken(token);
-			loginResponse.setType(loginForm.getClientType().toString());
+			loginResponse.setToken(this.token);
+			loginResponse.setType(loginForm.getClientType());
 			
 			return ResponseEntity.ok().headers(responseHeaders).body(loginResponse);
 
