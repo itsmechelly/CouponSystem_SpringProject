@@ -86,16 +86,11 @@ public class SessionContext {
 	///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	
 	public boolean isTokenExist(String token) throws NotFoundException {
-		System.out.println(token);
 		Session session = sessions.get(token);
-		System.out.println("1");
 		if (session != null) {
-			System.out.println("2");
 			return true;
 		}
-		System.out.println("3");
-		System.out.println(token);
-		throw new NotFoundException("tommmmmmmmmmmmmmmmmmmsken");
+		throw new NotFoundException("token");
 	}
 	
 	public Object getClientService(String token, String attrKey) {
