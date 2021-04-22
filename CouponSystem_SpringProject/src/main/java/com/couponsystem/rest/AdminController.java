@@ -30,7 +30,7 @@ import com.couponsystem.security.SessionContext;
 @CrossOrigin(origins = "http://localhost:4200", allowedHeaders = "*")
 public class AdminController {
 	
-	private SessionContext sessionContext;
+	private final SessionContext sessionContext;
 	
 	@Autowired
 	public AdminController(SessionContext sessionContext) {
@@ -45,7 +45,6 @@ public class AdminController {
 			@RequestHeader(name = "CouponSystem_Header") String token) {
 
 		try {
-			System.out.println(token + "controller");
 			sessionContext.isTokenExist(token);
 			return ResponseEntity.ok(( (AdminService) sessionContext.getClientService(token, ClientType.ADMIN.toString())).addCompany(company));
 		} catch (LogException e) {
