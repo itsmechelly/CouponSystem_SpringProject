@@ -46,7 +46,6 @@ public class CompanyController {
 
 		try {
 			sessionContext.isTokenExist(token);
-			//TODO
 			return ResponseEntity.ok(((CompanyService) sessionContext.getClientService(token, ClientType.COMPANY.toString())).addCoupon(coupon));
 		} catch (LogException e) {
 			return new ResponseEntity<>(e.getMessage(), HttpStatus.UNAUTHORIZED);
