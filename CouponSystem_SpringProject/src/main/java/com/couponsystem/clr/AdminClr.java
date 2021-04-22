@@ -10,21 +10,21 @@ import com.couponsystem.beans.Customer;
 import com.couponsystem.beans.LoginForm;
 import com.couponsystem.enums.ClientType;
 import com.couponsystem.rest.AdminController;
-import com.couponsystem.service.LoginService;
+import com.couponsystem.security.LoginController;
 import com.couponsystem.utils.ClrUtils;
 
 @Component
 @Order(1)
 public class AdminClr implements CommandLineRunner {
 
+	private final LoginController loginController;
 	private final AdminController adminController;
-	private final LoginService loginService;
-	
+
 	@Autowired
-	public AdminClr(AdminController adminController, LoginService loginService) {
+	public AdminClr(LoginController loginController, AdminController adminController) {
 		super();
+		this.loginController = loginController;
 		this.adminController = adminController;
-		this.loginService = loginService;
 	}
 
 	@Override
@@ -47,25 +47,22 @@ public class AdminClr implements CommandLineRunner {
 
 		ClrUtils.testSeparatedLine(" --------->>>>>>>> Testing Admin Login:");
 
-//		System.out.println("Going to test login exception - *WRONG* *Email*:");
-//		System.out.println(adminController.ClientLogin("BADadmin@BADadmin.com", "admin"));
-//
-//		System.out.println();
-//		System.out.println("Going to test login exception - *WRONG* *Password*:");
-//		System.out.println(adminController.ClientLogin("admin@admin.com", "nimda"));
-
+		System.out.println("Going to test login exception - *WRONG* *Email*:");
+		LoginForm badEmailLoginForm = new LoginForm("BADadmin@BADadmin.com", "admin", ClientType.ADMIN);
+		System.out.println(loginController.login(badEmailLoginForm));
+		
+		System.out.println();
+		System.out.println("Going to test login exception - *WRONG* *Password*:");
+		LoginForm badPasswordLoginForm = new LoginForm("admin@admin.com", "nimda", ClientType.ADMIN);
+		System.out.println(loginController.login(badPasswordLoginForm));
+		
 		System.out.println();
 		System.out.println("Going to test GOOD admin login:");
+		LoginForm goodLoginForm = new LoginForm("admin@admin.com", "admin", ClientType.ADMIN);
+		System.out.println(loginController.login(goodLoginForm));
+		String token = loginController.getToken();
 		
-		LoginForm loginForm = new LoginForm();
-
-		loginForm.setEmail("admin@admin.com");
-		loginForm.setPasswoed("admin");
-		loginForm.setClientType(ClientType.ADMIN);
 		
-		String token = loginService.login(loginForm);
-		System.out.println(token);
-
 //		TODO -> Logout
 //		ClrUtils.testSeparatedLine(" --------->>>>>>>> Going to test Admin Logout:");
 

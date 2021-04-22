@@ -45,8 +45,9 @@ public class AdminController {
 			@RequestHeader(name = "CouponSystem_Header") String token) {
 
 		try {
+			System.out.println(token + "controller");
 			sessionContext.isTokenExist(token);
-			return ResponseEntity.ok(( (AdminService) sessionContext.getClientService(token, ClientType.ADMIN)).addCompany(company));
+			return ResponseEntity.ok(( (AdminService) sessionContext.getClientService(token, ClientType.ADMIN.toString())).addCompany(company));
 		} catch (LogException e) {
 			return new ResponseEntity<>(e.getMessage(), HttpStatus.UNAUTHORIZED);
 		} catch (AlreadyExistException e) {
@@ -62,7 +63,7 @@ public class AdminController {
 
 		try {
 			sessionContext.isTokenExist(token);
-			return ResponseEntity.ok(((AdminService) sessionContext.getClientService(token, ClientType.ADMIN)).updateCompany(company));
+			return ResponseEntity.ok(((AdminService) sessionContext.getClientService(token, ClientType.ADMIN.toString())).updateCompany(company));
 		} catch (LogException e) {
 			return new ResponseEntity<>(e.getMessage(), HttpStatus.UNAUTHORIZED);
 		} catch (NotFoundException e) {
@@ -78,7 +79,7 @@ public class AdminController {
 
 		try {
 			sessionContext.isTokenExist(token);
-			return ResponseEntity.ok(((AdminService) sessionContext.getClientService(token, ClientType.ADMIN)).deleteCompany(companyId));
+			return ResponseEntity.ok(((AdminService) sessionContext.getClientService(token, ClientType.ADMIN.toString())).deleteCompany(companyId));
 		} catch (LogException e) {
 			return new ResponseEntity<>(e.getMessage(), HttpStatus.UNAUTHORIZED);
 		} catch (NotFoundException e) {
@@ -93,7 +94,7 @@ public class AdminController {
 		try {
 			sessionContext.isTokenExist(token);
 			return ResponseEntity
-					.ok(((AdminService) sessionContext.getClientService(token, ClientType.ADMIN)).getOneCompanyById(companyId));
+					.ok(((AdminService) sessionContext.getClientService(token, ClientType.ADMIN.toString())).getOneCompanyById(companyId));
 		} catch (LogException e) {
 			return new ResponseEntity<>(e.getMessage(), HttpStatus.UNAUTHORIZED);
 		} catch (NotFoundException e) {
@@ -106,7 +107,7 @@ public class AdminController {
 
 		try {
 			sessionContext.isTokenExist(token);
-			return ResponseEntity.ok(((AdminService) sessionContext.getClientService(token, ClientType.ADMIN)).getAllCompanies());
+			return ResponseEntity.ok(((AdminService) sessionContext.getClientService(token, ClientType.ADMIN.toString())).getAllCompanies());
 		} catch (LogException e) {
 			return new ResponseEntity<>(e.getMessage(), HttpStatus.UNAUTHORIZED);
 		} catch (NotFoundException e) {
@@ -120,7 +121,7 @@ public class AdminController {
 		try {
 			sessionContext.isTokenExist(token);
 			return ResponseEntity
-					.ok(((AdminService) sessionContext.getClientService(token, ClientType.ADMIN)).addCustomer(customer));	
+					.ok(((AdminService) sessionContext.getClientService(token, ClientType.ADMIN.toString())).addCustomer(customer));	
 		} catch (LogException e) {
 			return new ResponseEntity<>(e.getMessage(), HttpStatus.UNAUTHORIZED);
 		} catch (AlreadyExistException e) {
@@ -137,7 +138,7 @@ public class AdminController {
 			
 			sessionContext.isTokenExist(token);
 			return ResponseEntity
-					.ok(((AdminService) sessionContext.getClientService(token, ClientType.ADMIN)).updateCustomer(customer));
+					.ok(((AdminService) sessionContext.getClientService(token, ClientType.ADMIN.toString())).updateCustomer(customer));
 		} catch (LogException e) {
 			return new ResponseEntity<>(e.getMessage(), HttpStatus.UNAUTHORIZED);
 		} catch (NotFoundException e) {
@@ -151,7 +152,7 @@ public class AdminController {
 		try {
 			sessionContext.isTokenExist(token);
 			return ResponseEntity
-					.ok(((AdminService) sessionContext.getClientService(token, ClientType.ADMIN)).deleteCustomer(customerId));
+					.ok(((AdminService) sessionContext.getClientService(token, ClientType.ADMIN.toString())).deleteCustomer(customerId));
 		} catch (LogException e) {
 			return new ResponseEntity<>(e.getMessage(), HttpStatus.UNAUTHORIZED);
 		} catch (NotFoundException e) {
@@ -165,7 +166,7 @@ public class AdminController {
 		try {
 			sessionContext.isTokenExist(token);
 			return ResponseEntity
-					.ok(((AdminService) sessionContext.getClientService(token, ClientType.ADMIN)).getOneCustomerById(customerId));
+					.ok(((AdminService) sessionContext.getClientService(token, ClientType.ADMIN.toString())).getOneCustomerById(customerId));
 		} catch (LogException e) {
 			return new ResponseEntity<>(e.getMessage(), HttpStatus.UNAUTHORIZED);
 		} catch (NotFoundException e) {
@@ -178,7 +179,7 @@ public class AdminController {
 		try {
 			sessionContext.isTokenExist(token);
 			return ResponseEntity
-					.ok(((AdminService) sessionContext.getClientService(token, ClientType.ADMIN)).getAllCustomers());
+					.ok(((AdminService) sessionContext.getClientService(token, ClientType.ADMIN.toString())).getAllCustomers());
 		} catch (LogException e) {
 			return new ResponseEntity<>(e.getMessage(), HttpStatus.UNAUTHORIZED);
 		} catch (NotFoundException e) {
