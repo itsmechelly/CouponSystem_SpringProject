@@ -43,7 +43,7 @@ public class CustomerController {
 
 		try {
 			sessionContext.isTokenExist(token);
-			return ResponseEntity.ok(((CustomerService) sessionContext.getClientService(token, ClientType.CUSTOMER)).purchaseCoupon(coupon));
+			return ResponseEntity.ok(((CustomerService) sessionContext.getClientService(token, ClientType.CUSTOMER.toString())).purchaseCoupon(coupon));
 		} catch (LogException e) {
 			return new ResponseEntity<>(e.getMessage(), HttpStatus.UNAUTHORIZED);
 		} catch (PurchaseCouponException e) {
@@ -58,7 +58,7 @@ public class CustomerController {
 
 		try {
 			sessionContext.isTokenExist(token);
-			return ResponseEntity.ok(((CustomerService) sessionContext.getClientService(token, ClientType.CUSTOMER)).getAllCoupons());
+			return ResponseEntity.ok(((CustomerService) sessionContext.getClientService(token, ClientType.CUSTOMER.toString())).getAllCoupons());
 		} catch (LogException e) {
 			return new ResponseEntity<>(e.getMessage(), HttpStatus.UNAUTHORIZED);
 		} catch (NotFoundException e) {
@@ -73,7 +73,7 @@ public class CustomerController {
 		try {
 			sessionContext.isTokenExist(token);
 			return ResponseEntity.ok(
-					((CustomerService) sessionContext.getClientService(token, ClientType.CUSTOMER)).getAllCouponsByCategory(couponCategory));
+					((CustomerService) sessionContext.getClientService(token, ClientType.CUSTOMER.toString())).getAllCouponsByCategory(couponCategory));
 		} catch (LogException e) {
 			return new ResponseEntity<>(e.getMessage(), HttpStatus.UNAUTHORIZED);
 		} catch (NotFoundException e) {
@@ -88,7 +88,7 @@ public class CustomerController {
 		try {
 			sessionContext.isTokenExist(token);
 			return ResponseEntity
-					.ok(((CustomerService) sessionContext.getClientService(token, ClientType.CUSTOMER)).getAllCouponsUnderMaxPrice(maxPrice));
+					.ok(((CustomerService) sessionContext.getClientService(token, ClientType.CUSTOMER.toString())).getAllCouponsUnderMaxPrice(maxPrice));
 		} catch (LogException e) {
 			return new ResponseEntity<>(e.getMessage(), HttpStatus.UNAUTHORIZED);
 		} catch (NotFoundException e) {
@@ -101,7 +101,7 @@ public class CustomerController {
 
 		try {
 			sessionContext.isTokenExist(token);
-			return ResponseEntity.ok(((CustomerService) sessionContext.getClientService(token, ClientType.CUSTOMER)).getCustomerDetails());
+			return ResponseEntity.ok(((CustomerService) sessionContext.getClientService(token, ClientType.CUSTOMER.toString())).getCustomerDetails());
 		} catch (LogException e) {
 			return new ResponseEntity<>(e.getMessage(), HttpStatus.UNAUTHORIZED);
 		} catch (NotFoundException e) {

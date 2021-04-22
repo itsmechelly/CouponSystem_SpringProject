@@ -10,23 +10,24 @@ import com.couponsystem.enums.ClientType;
 import com.couponsystem.enums.CouponCategory;
 import com.couponsystem.impl.CustomerImpl;
 import com.couponsystem.rest.CustomerController;
-import com.couponsystem.service.LoginService;
+import com.couponsystem.security.LoginController;
 import com.couponsystem.utils.ClrUtils;
 
 @Component
 @Order(3)
 public class CustomerClr implements CommandLineRunner {
 
+	
 	private final CustomerController customerController;
 	private final CustomerImpl customerImpl;
-	private final LoginService loginService;
+	private final LoginController loginController;
 
 	@Autowired
-	public CustomerClr(CustomerController customerController, CustomerImpl customerImpl, LoginService loginService) {
+	public CustomerClr(LoginController loginController, CustomerController customerController, CustomerImpl customerImpl) {
 		super();
+		this.loginController = loginController;
 		this.customerController = customerController;
 		this.customerImpl = customerImpl;
-		this.loginService = loginService;
 	}
 
 	@Override
@@ -47,24 +48,22 @@ public class CustomerClr implements CommandLineRunner {
 //		------------------------------------------------------------------------------------------------------------
 
 		ClrUtils.testSeparatedLine(" --------->>>>>>>> Testing Company Login:");
-//
-//		System.out.println("Going to test login exception - *WRONG* *Email*:");
-//		System.out.println(customerController.ClientLogin("BADcust@cust.com", "1111"));
-//
-//		System.out.println();
-//		System.out.println("Going to test login exception - *WRONG* *Password*:");
-//		System.out.println(customerController.ClientLogin("cust1@cust.com", "1010"));
-//
+
+		System.out.println("Going to test login exception - *WRONG* *Email*:");
+		LoginForm badEmailLoginForm = new LoginForm("BADcust@cust.com", "1111", ClientType.CUSTOMER);
+		System.out.println(loginController.login(badEmailLoginForm));
+
+		System.out.println();
+		System.out.println("Going to test login exception - *WRONG* *Password*:");
+		LoginForm badPasswordLoginForm = new LoginForm("cust1@cust.com", "1010", ClientType.CUSTOMER);
+		System.out.println(loginController.login(badPasswordLoginForm));
+
+
 		System.out.println();
 		System.out.println("Going to test GOOD customer login:");
-
-		LoginForm loginForm = new LoginForm();
-		loginForm.setEmail("cust1@cust.com");
-		loginForm.setPasswoed("1111");
-		loginForm.setClientType(ClientType.CUSTOMER);
-
-		String token = loginService.login(loginForm);
-		System.out.println(token);
+		LoginForm goodLoginForm = new LoginForm("cust1@cust.com", "1111", ClientType.CUSTOMER);
+		System.out.println(loginController.login(goodLoginForm));
+		String token = loginController.getToken();
 
 //		TODO -> Logout
 //		ClrUtils.testSeparatedLine(" --------->>>>>>>> Going to test Customer Logout:");
