@@ -10,7 +10,6 @@ import com.couponsystem.beans.LoginForm;
 import com.couponsystem.enums.ClientType;
 import com.couponsystem.enums.CouponCategory;
 import com.couponsystem.rest.CompanyController;
-import com.couponsystem.service.LoginService;
 import com.couponsystem.security.LoginController;
 import com.couponsystem.utils.ClrUtils;
 import com.couponsystem.utils.DateUtil;
@@ -21,14 +20,12 @@ public class CompanyClr implements CommandLineRunner {
 
 	private final LoginController loginController;
 	private final CompanyController companyController;
-	private final LoginService loginService;
 
 	@Autowired
-	public CompanyClr(LoginController loginController, CompanyController companyController, LoginService loginService) {
+	public CompanyClr(LoginController loginController, CompanyController companyController) {
 		super();
 		this.loginController = loginController;
 		this.companyController = companyController;
-		this.loginService = loginService;
 	}
 
 	@Override
@@ -51,25 +48,20 @@ public class CompanyClr implements CommandLineRunner {
 
 		ClrUtils.testSeparatedLine(" --------->>>>>>>> Testing Company Login:");
 //
-//		System.out.println("Going to test login exception - *WRONG* *Email*:");
-//		System.out.println(companyController.ClientLogin("BADcomp@comp.com", "1111"));
-//
-//		System.out.println();
-//		System.out.println("Going to test login exception - *WRONG* *Password*:");
-//		System.out.println(companyController.ClientLogin("comp1Email@comp.com", "1010"));
-//
+		System.out.println("Going to test login exception - *WRONG* *Email*:");
+		LoginForm badEmailLoginForm = new LoginForm("BADcomp@comp.com", "1111", ClientType.COMPANY);
+		System.out.println(loginController.login(badEmailLoginForm));
+
+		System.out.println();
+		System.out.println("Going to test login exception - *WRONG* *Password*:");
+		LoginForm badPasswordLoginForm = new LoginForm("comp1Email@comp.com", "1010", ClientType.COMPANY);
+		System.out.println(loginController.login(badPasswordLoginForm));
+
 		System.out.println();
 		System.out.println("Going to test GOOD company login:");
-		
-		LoginForm loginForm = new LoginForm();
-		loginForm.setEmail("comp1Email@comp.com");
-		loginForm.setPasswoed("1111");
-		loginForm.setClientType(ClientType.COMPANY);
-		
-		String token = loginService.login(loginForm);
-		String token2 = loginController.login(loginForm).toString();
-		System.out.println(token);
-		System.out.println(token2);
+		LoginForm goodLoginForm = new LoginForm("comp1Email@comp.com", "1111", ClientType.COMPANY);
+		System.out.println(loginController.login(goodLoginForm));
+		String token = loginController.getToken();
 		
 //		TODO -> Logout
 //		ClrUtils.testSeparatedLine(" --------->>>>>>>> Going to test Company Logout:");
