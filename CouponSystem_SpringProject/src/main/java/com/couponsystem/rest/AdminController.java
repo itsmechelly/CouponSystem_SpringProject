@@ -27,7 +27,8 @@ import com.couponsystem.security.SessionContext;
 
 @RestController
 @RequestMapping("/admin")
-@CrossOrigin(origins = "http://localhost:4200", allowedHeaders = "*")
+@CrossOrigin(origins = "http://localhost:3000", allowedHeaders = "*")
+//@CrossOrigin(origins = "http://localhost:4200", allowedHeaders = "*")
 public class AdminController {
 	
 	private final SessionContext sessionContext;

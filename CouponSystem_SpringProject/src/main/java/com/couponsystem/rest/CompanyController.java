@@ -27,7 +27,8 @@ import com.couponsystem.security.SessionContext;
 
 @RestController
 @RequestMapping("/company")
-@CrossOrigin(origins = "http://localhost:4200", allowedHeaders = "*")
+@CrossOrigin(origins = "http://localhost:3000", allowedHeaders = "*")
+//@CrossOrigin(origins = "http://localhost:4200", allowedHeaders = "*")
 public class CompanyController {
 
 	private final SessionContext sessionContext;
