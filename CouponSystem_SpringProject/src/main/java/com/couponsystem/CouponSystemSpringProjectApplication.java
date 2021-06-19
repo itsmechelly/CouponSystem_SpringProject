@@ -9,7 +9,6 @@ public class CouponSystemSpringProjectApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(CouponSystemSpringProjectApplication.class, args);
-		System.out.println("stam");
 	}
 
 }
